@@ -14,7 +14,6 @@ function! s:test()
 endfunction
 
 function! s:run_command(cmd)
-  echom a:cmd
   execute '!' . a:cmd
 endfunction
 
