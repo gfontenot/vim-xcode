@@ -35,7 +35,7 @@ function! s:project_file()
 endfunction
 
 function! s:scheme()
-  let scheme = "silent ! source " . s:plugin_path . "/bin/find_scheme.sh \"" . s:project_file() . "\""
+  let scheme = system("source " . s:plugin_path . "/bin/find_scheme.sh \"" . s:project_file() . "\"")
   return '-scheme '. scheme
 endfunction
 
