@@ -3,13 +3,21 @@ command! XcodebuildTest call <sid>test()
 
 let s:plugin_path = expand("<sfile>:p:h:h")
 
+if !exists("g:xcpretty_testing_flags")
+  let g:xcpretty_testing_flags = ""
+endif
+
+if !exists("g:xcpretty_flags")
+  let g:xcpretty_flags = "--color"
+endif
+
 function! s:build()
   let cmd = s:base_command()  . s:xcpretty()
   call s:run_command(cmd)
 endfunction
 
 function! s:test()
-  let cmd =  s:base_command() . ' -sdk iphonesimulator test' . s:xcpretty()
+  let cmd =  s:base_command() . ' -sdk iphonesimulator test' . s:xcpretty_test()
   call s:run_command(cmd)
 endfunction
 
@@ -41,8 +49,17 @@ endfunction
 
 function! s:xcpretty()
   if executable('xcpretty')
-    return ' | xcpretty --color'
+    return ' | xcpretty ' . g:xcpretty_flags
   else
     return ''
   endif
+endfunction
+
+function! s:xcpretty_test()
+  let xcpretty = s:xcpretty()
+  if empty(xcpretty)
+    return ''
+  endif
+
+  return xcpretty . ' ' . g:xcpretty_testing_flags
 endfunction
