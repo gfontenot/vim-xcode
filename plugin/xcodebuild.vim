@@ -22,7 +22,7 @@ function! s:base_command()
 endfunction
 
 function! s:build_target()
-  let xcworkspaceFile = globpath(expand('.'), '*.xcworkspace')
+  let xcworkspaceFile = glob('*.xcworkspace')
   if empty(xcworkspaceFile)
     return '-project ' . s:project_file()
   else
