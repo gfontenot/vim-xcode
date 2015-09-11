@@ -41,7 +41,7 @@ endfunction
 
 function! s:xcpretty()
   if executable('xcpretty')
-    return ' | xcpretty --color --test'
+    return ' | xcpretty --color'
   else
     return ''
   endif
