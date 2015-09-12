@@ -35,8 +35,11 @@ function! s:project_file()
 endfunction
 
 function! s:scheme()
-  let scheme = system('source ' . s:plugin_path . '/bin/find_scheme.sh "' . s:project_file() . '"')
-  return '-scheme '. scheme
+  if !exists('s:chosen_scheme')
+    let s:chosen_scheme = system('source ' . s:plugin_path . '/bin/find_scheme.sh "' . s:project_file() . '"')
+  endif
+
+  return '-scheme '. s:chosen_scheme
 endfunction
 
 function! s:xcpretty()
