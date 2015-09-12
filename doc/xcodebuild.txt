@@ -1,0 +1,28 @@
+*xcodebuild.txt* Plugin to build and test Xcode projects from vim
+
+==============================================================================
+CONTENTS                               *xcodebuild-contents*
+
+
+==============================================================================
+INTRODUCTION                           *xcodebuild*
+
+Xcodebuild.vim is a thin wrapper around Apple's xcodebuild command line
+application that lets you build and test your Xcode projects from within vim.
+It dynamically figures out your project information and passes the proper
+flags to xcodebuild.
+
+If you have xcpretty installed, it will use that to reformat the output from
+xcodebuild. By default, xcodebuild.vim passes the `--color` flag to xcpretty.
+
+==============================================================================
+CONFIGURATION                             *xcodebuild-configuration*
+
+* Set the flags passed to xcpretty for all actions, including test actions.
+ let g:xcodebuild_xcpretty_flags = '--color'
+
+* Set the flags passed to xcpretty for test actions only. These flags will not
+  be sent when building.
+ let g:xcodebuild_xcpretty_testing_flags = '--simple'
+
+vim:tw=78:ts=8:ft=help:norl:
