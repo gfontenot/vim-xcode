@@ -1,5 +1,5 @@
-command! XcodebuildBuild call <sid>build()
-command! XcodebuildTest call <sid>test()
+command! XBuild call <sid>build()
+command! XTest call <sid>test()
 
 let s:plugin_path = expand('<sfile>:p:h:h')
 
