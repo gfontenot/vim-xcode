@@ -1,7 +1,7 @@
 command! XcodebuildBuild call <sid>build()
 command! XcodebuildTest call <sid>test()
 
-let s:plugin_path = expand("<sfile>:p:h:h")
+let s:plugin_path = expand('<sfile>:p:h:h')
 
 if !exists("g:xcpretty_testing_flags")
   let g:xcpretty_testing_flags = ""
@@ -43,7 +43,7 @@ function! s:project_file()
 endfunction
 
 function! s:scheme()
-  let scheme = system("source " . s:plugin_path . "/bin/find_scheme.sh \"" . s:project_file() . "\"")
+  let scheme = system('source ' . s:plugin_path . '/bin/find_scheme.sh "' . s:project_file() . '"')
   return '-scheme '. scheme
 endfunction
 
