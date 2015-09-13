@@ -3,6 +3,18 @@ command! XTest call <sid>test()
 
 let s:plugin_path = expand('<sfile>:p:h:h')
 
+function! s:bin_script(name)
+  return s:plugin_path . '/bin/' . a:name
+endfunction
+
+function! s:quoted(string)
+  return '"' . a:string . '"'
+endfunction
+
+function! s:cli_arg(string)
+  return ' ' . s:quoted(a:string)
+endfunction
+
 function! s:build()
   let cmd = s:base_command()  . s:xcpretty()
   call s:run_command(cmd)
@@ -36,7 +48,7 @@ endfunction
 
 function! s:scheme()
   if !exists('s:chosen_scheme')
-    let s:chosen_scheme = system('source ' . s:plugin_path . '/bin/find_scheme.sh "' . s:project_file() . '"')
+    let s:chosen_scheme = system('source ' . s:bin_script('find_scheme.sh') . s:cli_arg(s:project_file()))
   endif
 
   return '-scheme '. s:chosen_scheme
