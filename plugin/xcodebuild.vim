@@ -11,8 +11,14 @@ function! s:quoted(string)
   return '"' . a:string . '"'
 endfunction
 
-function! s:cli_arg(string)
-  return ' ' . s:quoted(a:string)
+function! s:cli_args(...)
+  let cli_args = ''
+
+  for cli_arg in a:000
+    let cli_args = cli_args . ' ' . s:quoted(cli_arg)
+  endfor
+
+  return cli_args
 endfunction
 
 function! s:build()
@@ -52,7 +58,7 @@ endfunction
 
 function!s:scheme_name()
   if !exists('s:chosen_scheme')
-    let s:chosen_scheme = system('source ' . s:bin_script('find_scheme.sh') . s:cli_arg(s:project_file()))
+    let s:chosen_scheme = system('source ' . s:bin_script('find_scheme.sh') . s:cli_args(s:project_file()))
   endif
 
   return s:chosen_scheme
@@ -60,7 +66,7 @@ endfunction
 
 function! s:sdk()
   if !exists('s:use_simulator')
-    let _ = system('source ' . s:bin_script('use_simulator.sh') . s:cli_arg(s:project_file()) . s:cli_arg(s:scheme_name()))
+    let _ = system('source ' . s:bin_script('use_simulator.sh') . s:cli_args(s:project_file(), s:scheme_name()))
     let s:use_simulator = !v:shell_error
   endif
 
