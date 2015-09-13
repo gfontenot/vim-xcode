@@ -18,17 +18,30 @@ function! s:cli_args(...)
 endfunction
 
 function! s:build()
-  let cmd = s:base_command()  . s:xcpretty()
-  call s:run_command(cmd)
+  if s:assert_project()
+    let cmd = s:base_command()  . s:xcpretty()
+    call s:run_command(cmd)
+  endif
 endfunction
 
 function! s:test()
-  let cmd =  s:base_command() . ' ' . s:sdk() . ' test' . s:xcpretty_test()
-  call s:run_command(cmd)
+  if s:assert_project()
+    let cmd =  s:base_command() . ' ' . s:sdk() . ' test' . s:xcpretty_test()
+    call s:run_command(cmd)
+  endif
 endfunction
 
 function! s:run_command(cmd)
   execute '!' . a:cmd
+endfunction
+
+function! s:assert_project()
+  if empty(s:project_file())
+    echohl ErrorMsg | echo 'No Xcode project file found!' | echohl None
+    return 0
+  else
+    return 1
+  endif
 endfunction
 
 function! s:base_command()
