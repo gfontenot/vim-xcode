@@ -7,15 +7,11 @@ function! s:bin_script(name)
   return s:plugin_path . '/bin/' . a:name
 endfunction
 
-function! s:quoted(string)
-  return '"' . a:string . '"'
-endfunction
-
 function! s:cli_args(...)
   let cli_args = ''
 
   for cli_arg in a:000
-    let cli_args = cli_args . ' ' . s:quoted(cli_arg)
+    let cli_args = cli_args . ' ' . shellescape(cli_arg)
   endfor
 
   return cli_args
