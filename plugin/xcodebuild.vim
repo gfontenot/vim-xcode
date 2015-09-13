@@ -62,7 +62,7 @@ endfunction
 
 function! s:sdk()
   if !exists('s:use_simulator')
-    let _ = system('source ' . s:bin_script('use_simulator.sh') . s:cli_args(s:project_file(), s:scheme_name()))
+    call system('source ' . s:bin_script('use_simulator.sh') . s:cli_args(s:project_file(), s:scheme_name()))
     let s:use_simulator = !v:shell_error
   endif
 
