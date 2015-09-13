@@ -21,7 +21,7 @@ function! s:build()
 endfunction
 
 function! s:test()
-  let cmd =  s:base_command() . ' -sdk iphonesimulator test' . s:xcpretty_test()
+  let cmd =  s:base_command() . ' ' . s:sdk() . ' test' . s:xcpretty_test()
   call s:run_command(cmd)
 endfunction
 
@@ -47,11 +47,28 @@ function! s:project_file()
 endfunction
 
 function! s:scheme()
+  return '-scheme '. s:scheme_name()
+endfunction
+
+function!s:scheme_name()
   if !exists('s:chosen_scheme')
     let s:chosen_scheme = system('source ' . s:bin_script('find_scheme.sh') . s:cli_arg(s:project_file()))
   endif
 
-  return '-scheme '. s:chosen_scheme
+  return s:chosen_scheme
+endfunction
+
+function! s:sdk()
+  if !exists('s:use_simulator')
+    let _ = system('source ' . s:bin_script('use_simulator.sh') . s:cli_arg(s:project_file()) . s:cli_arg(s:scheme_name()))
+    let s:use_simulator = !v:shell_error
+  endif
+
+  if s:use_simulator
+    return '-sdk iphonesimulator'
+  else
+    return '-sdk macosx'
+  endif
 endfunction
 
 function! s:xcpretty()
