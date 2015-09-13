@@ -8,13 +8,7 @@ function! s:bin_script(name)
 endfunction
 
 function! s:cli_args(...)
-  let cli_args = ''
-
-  for cli_arg in a:000
-    let cli_args = cli_args . ' ' . shellescape(cli_arg)
-  endfor
-
-  return cli_args
+  return ' ' . join(map(copy(a:000), 'shellescape(v:val)'))
 endfunction
 
 function! s:build()
