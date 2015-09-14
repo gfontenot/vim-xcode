@@ -17,8 +17,8 @@ Plugin 'gfontenot/vim-xcodebuild'
 finds the project in the current working directory (with support for
 workspaces as well) and builds the first scheme it finds.
 
- - `XBuild` will build the project
- - `XTest` will test the project
+ - `:XBuild` will build the project
+ - `:XTest` will test the project
 
 ### `xcpretty` support
 
