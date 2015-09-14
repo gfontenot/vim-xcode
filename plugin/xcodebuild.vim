@@ -1,6 +1,10 @@
 command! XBuild call <sid>build()
 command! XTest call <sid>test()
 
+let s:default_run_command = '!'
+let s:default_xcpretty_flags = '--color'
+let s:default_xcpretty_testing_flags = ''
+
 let s:plugin_path = expand('<sfile>:p:h:h')
 
 function! s:bin_script(name)
@@ -84,7 +88,7 @@ function! s:runner()
   if exists('g:xcodebuild_runner')
     return g:xcodebuild_runner
   else
-    return '!'
+    return s:default_run_command
   endif
 endfunction
 
@@ -109,7 +113,7 @@ function! s:xcpretty_flags()
   if exists('g:xcodebuild_xcpretty_flags')
     return g:xcodebuild_xcpretty_flags
   else
-    return '--color'
+    return s:default_xcpretty_flags
   endif
 endfunction
 
@@ -117,6 +121,6 @@ function! s:xcpretty_testing_flags()
   if exists('g:xcodebuild_xcpretty_testing_flags')
     return g:xcodebuild_xcpretty_testing_flags
   else
-    return ''
+    return s:default_xcpretty_testing_flags
   endif
 endfunction
