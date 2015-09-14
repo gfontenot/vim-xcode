@@ -28,23 +28,10 @@ have it installed, `xcodebuild.vim` will pipe all `xcodebuild` output through
 
 [`xcpretty`]: https://github.com/supermarin/xcpretty
 
-If you'd like to customize the output from `xcpretty`, you can do so by
-setting a couple of global variables in your `vimrc`:
+For customization options, see the [included help doc][help] (`:h xcodebuild`
+from within Vim).
 
- - `g:xcodebuild_xcpretty_flags` will be passed to build and test commands. By
-   default, this is `--color`.
- - `g:xcodebuild_xcpretty_test_flags` will be passed to test commands only. By
-   default, this is empty.
-
-```vim
-let g:xcodebuild_xcpretty_flags = '--color --no-utf'
-let g:xcoebuild_xcpretty_test_flags = '--test'
-```
-
-See the [`xcpretty` formatting documentation][xcpretty-doc] for available
-options.
-
-[xcpretty-doc]: https://github.com/supermarin/xcpretty#formats
+[help]: https://github.com/gfontenot/vim-xcodebuild/blob/master/doc/xcodebuild.txt
 
 ### Async builds
 
@@ -65,7 +52,12 @@ This is useful for using `xcodebuild.vim` with other plugins such as
 [`vim-tmux-runner`]: https://github.com/christoomey/vim-tmux-runner
 [`vim-dispatch`]: https://github.com/tpope/vim-dispatch
 
+For more info, see the [included help doc][help] (`:h xcodebuild` from within
+Vim).
+
+[help]: https://github.com/gfontenot/vim-xcodebuild/blob/master/doc/xcodebuild.txt
+
 ## License
 
-xcodeproj.vim is copyright © 2015 Gordon Fontenot It is free software, and may be
-redistributed under the terms specified in the `LICENSE` file.
+xcodeproj.vim is copyright © 2015 Gordon Fontenot It is free software, and may
+be redistributed under the terms specified in the `LICENSE` file.

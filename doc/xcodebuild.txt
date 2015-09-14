@@ -1,31 +1,139 @@
-*xcodebuild.txt* Plugin to build and test Xcode projects from vim
+*xcodebuild.txt*
+
+                            xcodebuild.vim
+                Build and test Xcode projects from Vim
 
 ==============================================================================
-CONTENTS                               *xcodebuild-contents*
+CONTENTS                                                         *XCB-Contents*
 
+      1. About.......................... |XCB-About|
+      2. Usage ......................... |XCB-Usage|
+        2.1  ............................. |XBuild|
+        2.2  ............................. |XTest|
+        2.3  ............................. |xcpretty|
+      3. Configuration ................. |XCB-Configuration|
+        3.1 .............................. |xcodebuild_run_command|
+        3.2 .............................. |xcodebuild_xcpretty_flags|
+        3.3 .............................. |xcodebuild_xcpretty_testing_flags|
 
 ==============================================================================
-INTRODUCTION                           *xcodebuild*
+ABOUT (1)                                                           *XCB-About*
 
-Xcodebuild.vim is a thin wrapper around Apple's xcodebuild command line
-application that lets you build and test your Xcode projects from within vim.
+`xcodebuild.vim` is a thin wrapper around Apple's `xcodebuild` command line
+application that lets you build and test your Xcode projects from within Vim.
 It dynamically figures out your project information and passes the proper
-flags to xcodebuild.
+flags to `xcodebuild`.
 
-If you have xcpretty installed, it will use that to reformat the output from
-xcodebuild. By default, xcodebuild.vim passes the `--color` flag to xcpretty.
+If you have `xcpretty`[1] installed, `xcodebuild.vim` will use it to reformat
+the output from `xcodebuild`.
+
+This plugin was written by Gordon Fontenot[2]. Bugs and feature requests are
+welcomed, and can be posted on the GitHub repo[3].
+
+[1]: https://github.com/supermarin/xcpretty
+[2]: http://gordonfontenot.com
+[3]: https://github.com/gfontenot/vim-xcodebuild
 
 ==============================================================================
-CONFIGURATION                             *xcodebuild-configuration*
+USAGE (2)                                                           *XCB-Usage*
 
-* Set the runner to use for the xcodebuild command (uses ! by default)
- let g:xcodebuild_run_command = 'VtrSendCommandToRunner! {cmd}'
+`xcodebuild.vim` provides two commands, one for building the project, and one
+for testing the project. It dynamically looks at your project configuration
+and determines which flags to pass to `xcodebuild`.
 
-* Set the flags passed to xcpretty for all actions, including test actions.
- let g:xcodebuild_xcpretty_flags = '--color'
+Currently, `xcodebuild.vim` only looks at the first scheme that it finds in
+the `xcodeproj` file in the working directory. It uses the build settings in
+that scheme to determine which sdk to test against. If you have an
+`xcworkspace` file that contains your project (as is common with projects
+using CocoaPods[4]), it will build the scheme through the workspace.
 
-* Set the flags passed to xcpretty for test actions only. These flags will not
-  be sent when building.
- let g:xcodebuild_xcpretty_testing_flags = '--simple'
+[4]: https://cocoapods.org/
 
+------------------------------------------------------------------------------
+                                                                       *XBuild*
+2.1 XBuild~
+
+Build the project with `xcodebuild`.
+
+The first time this command is run, there will be a small delay as we parse
+the scheme information from the project. This scheme info is cached with your
+Vim session, so subsequent runs will execute faster.
+
+------------------------------------------------------------------------------
+                                                                       *XTest*
+2.2 XTest~
+
+Run the project tests through `xcodebuild`.
+
+The first time this command is run, there will be a small delay as we parse
+the sdk information for the scheme, and might be a delay while we parse the
+scheme information as well (if |XBuild| hasn't been run previously). This
+information is cached with the Vim session, so subsequent runs will execute
+faster.
+
+------------------------------------------------------------------------------
+                                                                     *xcpretty*
+2.3 xcpretty~
+
+If `xcpretty`[1] is installed and is available in your `PATH`, `xcodebuild.vim`
+will pipe all output through it to improve `xcodebuild`'s output. See
+|XCB-Configuration| for info on how to customize the appearance of the output.
+
+==============================================================================
+CONFIGURATION (3)                                           *XCB-Configuration*
+
+You can configure `xcodebuild.vim` with the following settings:
+
+------------------------------------------------------------------------------
+                                                       *xcodebuild_run_command*
+3.1 g:xcodebuild_run_command~
+
+The command to use when executing `xcodebuild` commands.
+
+This is a template string used to execute the actual command. The string
+"{cmd}" will be replaced with the actual `xcodebuild` command that has been
+generated.
+
+You can customize this if you want to pass the command through a custom script
+in your `PATH`, or use something like `vim-tmux-runner`[4] or
+`vim-dispatch`[5] to make builds asynchronous
+
+  let g:xcodebuild_run_command = 'VtrSendCommandToRunner! {cmd}'
+
+Default: '! {cmd}`
+
+------------------------------------------------------------------------------
+                                                    *xcodebuild_xcpretty_flags*
+3.2 g:xcodebuild_xcpretty_flags~
+
+The flags to pass to `xcpretty`[1] for all actions, including tests.
+
+See the `xcpretty` documentation[5] for available options.
+
+  let g:xcodebuild_xcpretty_flags = '--no-utf --color'
+
+Default: '--color'
+
+[5]: https://github.com/supermarin/xcpretty#formats
+
+------------------------------------------------------------------------------
+                                            *xcodebuild_xcpretty_testing_flags*
+3.3 g:xcodebuild_xcpretty_testing_flags~
+
+The flags to pass to `xcpretty`[1] for test actions only.
+
+These will be combined with the flags from |xcodebuild_xcpretty_flags| and
+passed only to test actions. These are set separately because some flags, such
+as '--test', hide the build output, which is probably undesirable during
+normal build actions.
+
+See the `xcpretty` documentation[5] for available options.
+
+  let g:xcodebuild_xcpretty_testing_flags = '--test'
+
+Default: ''
+
+[5]: https://github.com/supermarin/xcpretty#formats
+
+==============================================================================
 vim:tw=78:ts=8:ft=help:norl:
