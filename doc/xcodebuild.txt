@@ -4,20 +4,20 @@
                 Build and test Xcode projects from Vim
 
 ==============================================================================
-CONTENTS                                                         *XCB-Contents*
+CONTENTS                                                 *xcodebuild--Contents*
 
-      1. About.......................... |XCB-About|
-      2. Usage ......................... |XCB-Usage|
-        2.1  ............................. |XBuild|
-        2.2  ............................. |XTest|
-        2.3  ............................. |xcpretty|
-      3. Configuration ................. |XCB-Configuration|
+      1. About.......................... |xcodebiuld-About|
+      2. Usage ......................... |xcodebuild-Usage|
+        2.1  ............................. |xcodebuild-:XBuild|
+        2.2  ............................. |xcodebuild-:XTest|
+        2.3  ............................. |scodebiuld-xcpretty|
+      3. Configuration ................. |xcodebuild-Configuration|
         3.1 .............................. |xcodebuild_run_command|
         3.2 .............................. |xcodebuild_xcpretty_flags|
         3.3 .............................. |xcodebuild_xcpretty_testing_flags|
 
 ==============================================================================
-ABOUT (1)                                                           *XCB-About*
+ABOUT (1)                                                    *xcodebuild-About*
 
 `xcodebuild.vim` is a thin wrapper around Apple's `xcodebuild` command line
 application that lets you build and test your Xcode projects from within Vim.
@@ -35,7 +35,7 @@ welcomed, and can be posted on the GitHub repo[3].
 [3]: https://github.com/gfontenot/vim-xcodebuild
 
 ==============================================================================
-USAGE (2)                                                           *XCB-Usage*
+USAGE (2)                                                    *xcodebuild-Usage*
 
 `xcodebuild.vim` provides two commands, one for building the project, and one
 for testing the project. It dynamically looks at your project configuration
@@ -50,8 +50,8 @@ using CocoaPods[4]), it will build the scheme through the workspace.
 [4]: https://cocoapods.org/
 
 ------------------------------------------------------------------------------
-                                                                       *XBuild*
-2.1 XBuild~
+                                                           *xcodebuild-:XBuild*
+2.1 :XBuild~
 
 Build the project with `xcodebuild`.
 
@@ -60,8 +60,8 @@ the scheme information from the project. This scheme info is cached with your
 Vim session, so subsequent runs will execute faster.
 
 ------------------------------------------------------------------------------
-                                                                       *XTest*
-2.2 XTest~
+                                                            *xcodebuild-:XTest*
+2.2 :XTest~
 
 Run the project tests through `xcodebuild`.
 
@@ -72,7 +72,7 @@ information is cached with the Vim session, so subsequent runs will execute
 faster.
 
 ------------------------------------------------------------------------------
-                                                                     *xcpretty*
+                                                          *xcodebuild-xcpretty*
 2.3 xcpretty~
 
 If `xcpretty`[1] is installed and is available in your `PATH`, `xcodebuild.vim`
@@ -80,7 +80,7 @@ will pipe all output through it to improve `xcodebuild`'s output. See
 |XCB-Configuration| for info on how to customize the appearance of the output.
 
 ==============================================================================
-CONFIGURATION (3)                                           *XCB-Configuration*
+CONFIGURATION (3)                                    *xcodebuild-Configuration*
 
 You can configure `xcodebuild.vim` with the following settings:
 
