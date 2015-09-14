@@ -55,9 +55,9 @@ using CocoaPods[4]), it will build the scheme through the workspace.
 
 Build the project with `xcodebuild`.
 
-The first time this command is run, there will be a small delay as we parse
-the scheme information from the project. This scheme info is cached with your
-Vim session, so subsequent runs will execute faster.
+The first time this command is run, there will be a small delay as the plugin
+parses the scheme information from the project. This scheme info is cached
+with your Vim session, so subsequent runs will execute faster.
 
 ------------------------------------------------------------------------------
                                                             *xcodebuild-:XTest*
@@ -65,19 +65,20 @@ Vim session, so subsequent runs will execute faster.
 
 Run the project tests through `xcodebuild`.
 
-The first time this command is run, there will be a small delay as we parse
-the sdk information for the scheme, and might be a delay while we parse the
-scheme information as well (if |XBuild| hasn't been run previously). This
-information is cached with the Vim session, so subsequent runs will execute
-faster.
+The first time this command is run, there will be a small delay as the plugin
+parses the SDK information for the scheme, and might be a delay while it
+parses the scheme information as well (if |XBuild| hasn't been run
+previously). This information is cached with the Vim session, so subsequent
+runs will execute faster.
 
 ------------------------------------------------------------------------------
                                                           *xcodebuild-xcpretty*
 2.3 xcpretty~
 
-If `xcpretty`[1] is installed and is available in your `PATH`, `xcodebuild.vim`
-will pipe all output through it to improve `xcodebuild`'s output. See
-|XCB-Configuration| for info on how to customize the appearance of the output.
+If `xcpretty`[1] is installed and is available in your `$PATH`,
+`xcodebuild.vim` will pipe all output through it to improve `xcodebuild`'s
+output. See |XCB-Configuration| for info on how to customize the appearance of
+the output.
 
 ==============================================================================
 CONFIGURATION (3)                                    *xcodebuild-Configuration*
@@ -95,7 +96,7 @@ This is a template string used to execute the actual command. The string
 generated.
 
 You can customize this if you want to pass the command through a custom script
-in your `PATH`, or use something like `vim-tmux-runner`[4] or
+in your `$PATH`, or use something like `vim-tmux-runner`[4] or
 `vim-dispatch`[5] to make builds asynchronous
 
   let g:xcodebuild_run_command = 'VtrSendCommandToRunner! {cmd}'
