@@ -4,9 +4,9 @@
                 Build and test Xcode projects from Vim
 
 ==============================================================================
-CONTENTS                                                 *xcodebuild--Contents*
+CONTENTS                                                 *xcodebuild-Contents*
 
-      1. About.......................... |xcodebiuld-About|
+      1. About.......................... |xcodebuild-About|
       2. Usage ......................... |xcodebuild-Usage|
         2.1  ............................. |xcodebuild-:XBuild|
         2.2  ............................. |xcodebuild-:XTest|
