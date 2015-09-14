@@ -1,7 +1,7 @@
 command! XBuild call <sid>build()
 command! XTest call <sid>test()
 
-let s:default_run_command = '!'
+let s:default_run_command = '! {cmd}'
 let s:default_xcpretty_flags = '--color'
 let s:default_xcpretty_testing_flags = ''
 
@@ -30,7 +30,8 @@ function! s:test()
 endfunction
 
 function! s:run_command(cmd)
-  execute s:runner() . ' ' . a:cmd
+  let run_cmd = substitute(s:runner_template(), '{cmd}', a:cmd, 'g')
+  execute run_cmd
 endfunction
 
 function! s:assert_project()
@@ -84,9 +85,9 @@ function! s:sdk()
   endif
 endfunction
 
-function! s:runner()
-  if exists('g:xcodebuild_runner')
-    return g:xcodebuild_runner
+function! s:runner_template()
+  if exists('g:xcodebuild_run_command')
+    return g:xcodebuild_run_command
   else
     return s:default_run_command
   endif

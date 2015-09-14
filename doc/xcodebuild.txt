@@ -19,7 +19,7 @@ xcodebuild. By default, xcodebuild.vim passes the `--color` flag to xcpretty.
 CONFIGURATION                             *xcodebuild-configuration*
 
 * Set the runner to use for the xcodebuild command (uses ! by default)
- let g:xcodebuild_runner = 'VtrSendCommandToRunner!'
+ let g:xcodebuild_run_command = 'VtrSendCommandToRunner! {cmd}'
 
 * Set the flags passed to xcpretty for all actions, including test actions.
  let g:xcodebuild_xcpretty_flags = '--color'
