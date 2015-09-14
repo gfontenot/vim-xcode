@@ -10,7 +10,8 @@ CONTENTS                                                 *xcodebuild-Contents*
       2. Usage ......................... |xcodebuild-Usage|
         2.1  ............................. |xcodebuild-:XBuild|
         2.2  ............................. |xcodebuild-:XTest|
-        2.3  ............................. |xcodebuild-xcpretty|
+        2.3  ............................. |xcodebuild-:XSelectScheme|
+        2.4  ............................. |xcodebuild-xcpretty|
       3. Configuration ................. |xcodebuild-Configuration|
         3.1 .............................. |xcodebuild_run_command|
         3.2 .............................. |xcodebuild_xcpretty_flags|
@@ -72,8 +73,18 @@ previously). This information is cached with the Vim session, so subsequent
 runs will execute faster.
 
 ------------------------------------------------------------------------------
+                                                    *xcodebuild-:XSelectScheme*
+2.3 :XSelectScheme~
+
+Set the scheme to build or test through `xcodebuild`.
+
+Specify the scheme to build or test. Calling this command resets the currently
+set SDK to build with. If you set a scheme that doesn't exist, `xcodebuild`
+will throw an error.
+
+------------------------------------------------------------------------------
                                                           *xcodebuild-xcpretty*
-2.3 xcpretty~
+2.4 xcpretty~
 
 If `xcpretty`[1] is installed and is available in your `$PATH`,
 `xcodebuild.vim` will pipe all output through it to improve `xcodebuild`'s

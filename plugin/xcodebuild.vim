@@ -1,5 +1,6 @@
 command! XBuild call <sid>build()
 command! XTest call <sid>test()
+command! -nargs=1 XSelectScheme call <sid>set_scheme("<args>")
 
 let s:default_run_command = '! {cmd}'
 let s:default_xcpretty_flags = '--color'
@@ -27,6 +28,11 @@ function! s:test()
     let cmd =  s:base_command() . ' ' . s:sdk() . ' test' . s:xcpretty_test()
     call s:run_command(cmd)
   endif
+endfunction
+
+function! s:set_scheme(scheme)
+  let s:chosen_scheme = a:scheme
+  unlet! s:use_simulator
 endfunction
 
 function! s:run_command(cmd)
@@ -64,7 +70,7 @@ function! s:scheme()
   return '-scheme '. s:scheme_name()
 endfunction
 
-function!s:scheme_name()
+function! s:scheme_name()
   if !exists('s:chosen_scheme')
     let s:chosen_scheme = system('source ' . s:bin_script('find_scheme.sh') . s:cli_args(s:project_file()))
   endif
