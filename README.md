@@ -28,8 +28,8 @@ have it installed, `xcodebuild.vim` will pipe all `xcodebuild` output through
 
 [`xcpretty`]: https://github.com/supermarin/xcpretty
 
-For customization options, see the [included help doc][help] (`:h xcodebuild`
-from within Vim).
+For customization options, see the [included help doc][help] (`:help
+xcodebuild` from within Vim).
 
 [help]: https://github.com/gfontenot/vim-xcodebuild/blob/master/doc/xcodebuild.txt
 
@@ -52,8 +52,8 @@ This is useful for using `xcodebuild.vim` with other plugins such as
 [`vim-tmux-runner`]: https://github.com/christoomey/vim-tmux-runner
 [`vim-dispatch`]: https://github.com/tpope/vim-dispatch
 
-For more info, see the [included help doc][help] (`:h xcodebuild` from within
-Vim).
+For more info, see the [included help doc][help] (`:help xcodebuild` from
+within Vim).
 
 [help]: https://github.com/gfontenot/vim-xcodebuild/blob/master/doc/xcodebuild.txt
 
