@@ -59,5 +59,5 @@ within Vim).
 
 ## License
 
-xcodeproj.vim is copyright © 2015 Gordon Fontenot It is free software, and may
-be redistributed under the terms specified in the `LICENSE` file.
+xcodeproj.vim is copyright © 2015 Gordon Fontenot. It is free software, and
+may be redistributed under the terms specified in the `LICENSE` file.
