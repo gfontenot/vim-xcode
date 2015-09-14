@@ -26,7 +26,7 @@ function! s:test()
 endfunction
 
 function! s:run_command(cmd)
-  execute '!' . a:cmd
+  execute s:runner() . ' ' . a:cmd
 endfunction
 
 function! s:assert_project()
@@ -77,6 +77,14 @@ function! s:sdk()
     return '-sdk iphonesimulator'
   else
     return '-sdk macosx'
+  endif
+endfunction
+
+function! s:runner()
+  if exists('g:xcodebuild_runner')
+    return g:xcodebuild_runner
+  else
+    return '!'
   endif
 endfunction
 

@@ -36,10 +36,32 @@ setting a couple of global variables in your `vimrc`:
  - `g:xcodebuild_xcpretty_test_flags` will be passed to test commands only. By
    default, this is empty.
 
+```vim
+let g:xcodebuild_xcpretty_flags = '--color --no-utf'
+let g:xcoebuild_xcpretty_test_flags = '--test'
+```
+
 See the [`xcpretty` formatting documentation][xcpretty-doc] for available
 options.
 
 [xcpretty-doc]: https://github.com/supermarin/xcpretty#formats
+
+### Async builds
+
+By default, `xcodebuild.vim` will take over the current terminal session to
+build and display the build/test log. However, with long build times, this
+might not be ideal. To help with this, `xcocebuild.vim` allows you to
+customize the runner by setting `g:xcodebuild_runner`:
+
+```vim
+let g:xcodebuild_runner = 'VtrSendCommandToRunner'
+```
+
+This is useful for using `xcodebuild.vim` with other plugins such as
+[`vim-tmux-runner`] and [`vim-dispatch`].
+
+[`vim-tmux-runner`]: https://github.com/christoomey/vim-tmux-runner
+[`vim-dispatch`]: https://github.com/tpope/vim-dispatch
 
 ## License
 
