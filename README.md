@@ -54,7 +54,7 @@ might not be ideal. To help with this, `xcocebuild.vim` allows you to
 customize the runner by setting `g:xcodebuild_runner`:
 
 ```vim
-let g:xcodebuild_runner = 'VtrSendCommandToRunner'
+let g:xcodebuild_runner = 'VtrSendCommandToRunner!'
 ```
 
 This is useful for using `xcodebuild.vim` with other plugins such as
