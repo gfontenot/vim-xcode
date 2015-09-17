@@ -10,8 +10,9 @@ CONTENTS                                                 *xcodebuild-Contents*
       2. Usage ......................... |xcodebuild-Usage|
         2.1  ............................. |xcodebuild-:XBuild|
         2.2  ............................. |xcodebuild-:XTest|
-        2.3  ............................. |xcodebuild-:XSelectScheme|
-        2.4  ............................. |xcodebuild-xcpretty|
+        2.3  ............................. |xcodebuild-:XClean|
+        2.4  ............................. |xcodebuild-:XSelectScheme|
+        2.5  ............................. |xcodebuild-xcpretty|
       3. Configuration ................. |xcodebuild-Configuration|
         3.1 .............................. |xcodebuild_run_command|
         3.2 .............................. |xcodebuild_xcpretty_flags|
@@ -73,8 +74,18 @@ previously). This information is cached with the Vim session, so subsequent
 runs will execute faster.
 
 ------------------------------------------------------------------------------
+                                                            *xcodebuild-:XClean*
+2.3 :XClean~
+
+Clean the project's build directory with `xcodebuild`
+
+This is useful for debugging build errors. Sometimes Xcode doesn't behave, and
+grabs stale build objects. Cleaning the project's build directory can
+occasionally solve these issues.
+
+------------------------------------------------------------------------------
                                                     *xcodebuild-:XSelectScheme*
-2.3 :XSelectScheme~
+2.4 :XSelectScheme~
 
 Set the scheme to build or test through `xcodebuild`.
 
@@ -84,7 +95,7 @@ will throw an error.
 
 ------------------------------------------------------------------------------
                                                           *xcodebuild-xcpretty*
-2.4 xcpretty~
+2.5 xcpretty~
 
 If `xcpretty`[1] is installed and is available in your `$PATH`,
 `xcodebuild.vim` will pipe all output through it to improve `xcodebuild`'s
