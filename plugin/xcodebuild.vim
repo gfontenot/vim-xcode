@@ -1,5 +1,6 @@
 command! XBuild call <sid>build()
 command! XTest call <sid>test()
+command! XClean call <sid>clean()
 command! -nargs=1 XSelectScheme call <sid>set_scheme("<args>")
 
 let s:default_run_command = '! {cmd}'
@@ -26,6 +27,13 @@ endfunction
 function! s:test()
   if s:assert_project()
     let cmd =  s:base_command() . ' ' . s:sdk() . ' test' . s:xcpretty_test()
+    call s:run_command(cmd)
+  endif
+endfunction
+
+function! s:clean()
+  if s:assert_project()
+    let cmd = s:base_command() . ' clean' . s:xcpretty()
     call s:run_command(cmd)
   endif
 endfunction
