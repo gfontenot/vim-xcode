@@ -20,6 +20,7 @@ workspaces as well) and builds the first scheme it finds.
  - `:XBuild` will build the project
  - `:XTest` will test the project
  - `:XClean` will clean the project's build directory
+ - `:XOpen` will open the project in Xcode
  - `:XSelectScheme` will let you manually specify the scheme to build and test
 
 ### `xcpretty` support

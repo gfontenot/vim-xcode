@@ -11,8 +11,9 @@ CONTENTS                                                 *xcodebuild-Contents*
         2.1  ............................. |xcodebuild-:XBuild|
         2.2  ............................. |xcodebuild-:XTest|
         2.3  ............................. |xcodebuild-:XClean|
-        2.4  ............................. |xcodebuild-:XSelectScheme|
-        2.5  ............................. |xcodebuild-xcpretty|
+        2.4  ............................. |xcodebuild-:XOpen|
+        2.5  ............................. |xcodebuild-:XSelectScheme|
+        2.6  ............................. |xcodebuild-xcpretty|
       3. Configuration ................. |xcodebuild-Configuration|
         3.1 .............................. |xcodebuild_run_command|
         3.2 .............................. |xcodebuild_build_dir|
@@ -85,8 +86,19 @@ grabs stale build objects. Cleaning the project's build directory can
 occasionally solve these issues.
 
 ------------------------------------------------------------------------------
+                                                            *xcodebuild-:XOpen*
+2.4 :XOpen~
+
+Open the project in Xcode
+
+There are still some things that aren't able to be done in Vim. Things like
+modifying the project index, changing build settings, and working with
+Interface Builder are better done in Xcode. This command provides an easy way
+to open the project quickly.
+
+------------------------------------------------------------------------------
                                                     *xcodebuild-:XSelectScheme*
-2.4 :XSelectScheme~
+2.5 :XSelectScheme~
 
 Set the scheme to build or test through `xcodebuild`.
 
@@ -96,7 +108,7 @@ will throw an error.
 
 ------------------------------------------------------------------------------
                                                           *xcodebuild-xcpretty*
-2.5 xcpretty~
+2.6 xcpretty~
 
 If `xcpretty`[1] is installed and is available in your `$PATH`,
 `xcodebuild.vim` will pipe all output through it to improve `xcodebuild`'s
