@@ -29,7 +29,7 @@ endfunction
 
 function! s:test()
   if s:assert_project()
-    let cmd =  s:base_command() . ' ' . s:sdk() . ' test' . s:xcpretty_test()
+    let cmd =  s:base_command() . ' test' . s:xcpretty_test()
     call s:run_command(cmd)
   endif
 endfunction
@@ -71,7 +71,7 @@ function! s:assert_project()
 endfunction
 
 function! s:base_command()
-  return 'xcodebuild ' . s:build_dir() . ' ' . s:build_target() . ' ' . s:scheme()
+  return 'xcodebuild ' . s:build_dir() . ' ' . s:build_target() . ' ' . s:scheme() . ' ' . s:sdk()
 endfunction
 
 function! s:build_dir()
