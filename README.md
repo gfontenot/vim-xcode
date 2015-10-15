@@ -21,6 +21,7 @@ workspaces as well) and builds the first scheme it finds.
  - `:XTest` will test the project
  - `:XClean` will clean the project's build directory
  - `:XOpen` will open the project in Xcode
+ - `:XSwitch` will switch the selected version of Xcode (requires sudo)
  - `:XSelectScheme` will let you manually specify the scheme to build and test
 
 ### `xcpretty` support

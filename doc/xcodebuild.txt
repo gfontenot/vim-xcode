@@ -12,8 +12,9 @@ CONTENTS                                                 *xcodebuild-Contents*
         2.2  ............................. |xcodebuild-:XTest|
         2.3  ............................. |xcodebuild-:XClean|
         2.4  ............................. |xcodebuild-:XOpen|
-        2.5  ............................. |xcodebuild-:XSelectScheme|
-        2.6  ............................. |xcodebuild-xcpretty|
+        2.5  ............................. |xcodebuild-:XSwitch|
+        2.6  ............................. |xcodebuild-:XSelectScheme|
+        2.7  ............................. |xcodebuild-xcpretty|
       3. Configuration ................. |xcodebuild-Configuration|
         3.1 .............................. |xcodebuild_run_command|
         3.2 .............................. |xcodebuild_build_dir|
@@ -97,8 +98,19 @@ Interface Builder are better done in Xcode. This command provides an easy way
 to open the project quickly.
 
 ------------------------------------------------------------------------------
+                                                          *xcodebuild-:XSwitch*
+2.5 :XSwitch~
+
+Switch the selected version of Xcode with `xcode-select`.
+
+Different versions of Xcode contain different versions of Swift and different
+versions of the compiler. Switching the version of Xcode can easily be done
+outside of Vim with `xcode-select`, but it's useful to have a quick shortcut
+for accessing that functionality quickly.
+
+------------------------------------------------------------------------------
                                                     *xcodebuild-:XSelectScheme*
-2.5 :XSelectScheme~
+2.6 :XSelectScheme~
 
 Set the scheme to build or test through `xcodebuild`.
 
@@ -108,7 +120,7 @@ will throw an error.
 
 ------------------------------------------------------------------------------
                                                           *xcodebuild-xcpretty*
-2.6 xcpretty~
+2.7 xcpretty~
 
 If `xcpretty`[1] is installed and is available in your `$PATH`,
 `xcodebuild.vim` will pipe all output through it to improve `xcodebuild`'s
