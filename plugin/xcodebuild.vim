@@ -71,7 +71,7 @@ function! s:assert_project()
 endfunction
 
 function! s:base_command()
-  return 'xcodebuild ' . s:build_dir() . ' ' . s:build_target() . ' ' . s:scheme() . ' ' . s:sdk()
+  return 'xcodebuild NSUnbufferedIO=YES ' . s:build_dir() . ' ' . s:build_target() . ' ' . s:scheme() . ' ' . s:sdk()
 endfunction
 
 function! s:build_dir()
