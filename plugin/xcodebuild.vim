@@ -98,7 +98,7 @@ function! s:project_file()
 endfunction
 
 function! s:scheme()
-  return '-scheme '. s:scheme_name()
+  return '-scheme \"'. s:scheme_name() . '\"'
 endfunction
 
 function! s:scheme_name()
