@@ -17,9 +17,8 @@ CONTENTS                                                 *xcodebuild-Contents*
         2.7  ............................. |xcodebuild-xcpretty|
       3. Configuration ................. |xcodebuild-Configuration|
         3.1 .............................. |xcodebuild_run_command|
-        3.2 .............................. |xcodebuild_build_dir|
-        3.3 .............................. |xcodebuild_xcpretty_flags|
-        3.4 .............................. |xcodebuild_xcpretty_testing_flags|
+        3.2 .............................. |xcodebuild_xcpretty_flags|
+        3.3 .............................. |xcodebuild_xcpretty_testing_flags|
 
 ==============================================================================
 ABOUT (1)                                                    *xcodebuild-About*
@@ -154,18 +153,8 @@ Default: '! {cmd}`
 [5]: https://github.com/tpope/vim-dispatch
 
 ------------------------------------------------------------------------------
-                                                       *xcodebuild_build_dir*
-3.1 g:xcodebuild_build_dir~
-
-Set the build location.
-
-  let g:xcodebuild_build_dir = './my_custom_build_location'
-
-Default: './build'
-
-------------------------------------------------------------------------------
                                                     *xcodebuild_xcpretty_flags*
-3.3 g:xcodebuild_xcpretty_flags~
+3.2 g:xcodebuild_xcpretty_flags~
 
 The flags to pass to `xcpretty`[1] for all actions, including tests.
 
@@ -179,7 +168,7 @@ Default: '--color'
 
 ------------------------------------------------------------------------------
                                             *xcodebuild_xcpretty_testing_flags*
-3.4 g:xcodebuild_xcpretty_testing_flags~
+3.3 g:xcodebuild_xcpretty_testing_flags~
 
 The flags to pass to `xcpretty`[1] for test actions only.
 

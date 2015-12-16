@@ -6,7 +6,6 @@ command! -nargs=1 -complete=file XSwitch call <sid>switch("<args>")
 command! -nargs=1 XSelectScheme call <sid>set_scheme("<args>")
 
 let s:default_run_command = '! {cmd}'
-let s:default_build_dir = './build'
 let s:default_xcpretty_flags = '--color'
 let s:default_xcpretty_testing_flags = ''
 
@@ -71,17 +70,7 @@ function! s:assert_project()
 endfunction
 
 function! s:base_command()
-  return 'xcodebuild NSUnbufferedIO=YES ' . s:build_dir() . ' ' . s:build_target() . ' ' . s:scheme() . ' ' . s:sdk()
-endfunction
-
-function! s:build_dir()
-  if exists('g:xcodebuild_build_dir')
-    let build_dir = g:xcodebuild_build_dir
-  else
-    let build_dir = s:default_build_dir
-  endif
-
-  return 'CONFIGURATION_BUILD_DIR=' . build_dir
+  return 'xcodebuild NSUnbufferedIO=YES ' . s:build_target() . ' ' . s:scheme() . ' ' . s:sdk()
 endfunction
 
 function! s:build_target()
