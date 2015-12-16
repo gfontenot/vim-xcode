@@ -21,14 +21,14 @@ endfunction
 
 function! s:build()
   if s:assert_project()
-    let cmd = s:base_command()  . s:xcpretty()
+    let cmd = s:base_command() . ' ' . s:destination() . s:xcpretty()
     call s:run_command(cmd)
   endif
 endfunction
 
 function! s:test()
   if s:assert_project()
-    let cmd =  s:base_command() . ' test' . s:xcpretty_test()
+    let cmd =  s:base_command() . ' ' . s:test_destination() . ' test' . s:xcpretty_test()
     call s:run_command(cmd)
   endif
 endfunction
@@ -70,7 +70,7 @@ function! s:assert_project()
 endfunction
 
 function! s:base_command()
-  return 'xcodebuild NSUnbufferedIO=YES ' . s:build_target() . ' ' . s:scheme() . ' ' . s:sdk()
+  return 'xcodebuild NSUnbufferedIO=YES ' . s:build_target() . ' ' . s:scheme()
 endfunction
 
 function! s:build_target()
@@ -98,17 +98,33 @@ function! s:scheme_name()
   return s:chosen_scheme
 endfunction
 
-function! s:sdk()
+function! s:use_simulator()
   if !exists('s:use_simulator')
     call system('source ' . s:bin_script('use_simulator.sh') . s:cli_args(s:project_file(), s:scheme_name()))
     let s:use_simulator = !v:shell_error
   endif
 
-  if s:use_simulator
-    return '-sdk iphonesimulator'
+  return s:use_simulator
+endfunction
+
+function! s:destination()
+  if s:use_simulator()
+    return '-destination "generic/platform=iOS"'
   else
-    return '-sdk macosx'
+    return s:osx_destination()
   endif
+endfunction
+
+function! s:test_destination()
+  if s:use_simulator()
+    return '-destination "platform=iOS Simulator,name=iPhone 6"'
+  else
+    return s:osx_destination()
+  endif
+endfunction
+
+function! s:osx_destination()
+  return '-destination "platform=OS X"'
 endfunction
 
 function! s:runner_template()
