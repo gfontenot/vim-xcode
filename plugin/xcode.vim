@@ -128,8 +128,8 @@ function! s:osx_destination()
 endfunction
 
 function! s:runner_template()
-  if exists('g:xcodebuild_run_command')
-    return g:xcodebuild_run_command
+  if exists('g:xcode_run_command')
+    return g:xcode_run_command
   else
     return s:default_run_command
   endif
@@ -153,16 +153,16 @@ function! s:xcpretty_test()
 endfunction
 
 function! s:xcpretty_flags()
-  if exists('g:xcodebuild_xcpretty_flags')
-    return g:xcodebuild_xcpretty_flags
+  if exists('g:xcode_xcpretty_flags')
+    return g:xcode_xcpretty_flags
   else
     return s:default_xcpretty_flags
   endif
 endfunction
 
 function! s:xcpretty_testing_flags()
-  if exists('g:xcodebuild_xcpretty_testing_flags')
-    return g:xcodebuild_xcpretty_testing_flags
+  if exists('g:xcode_xcpretty_testing_flags')
+    return g:xcode_xcpretty_testing_flags
   else
     return s:default_xcpretty_testing_flags
   endif
