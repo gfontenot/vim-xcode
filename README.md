@@ -20,7 +20,7 @@ its own. It dynamically finds the project in the current working directory
  - `:XBuild` will build the project
  - `:XTest` will test the project
  - `:XClean` will clean the project's build directory
- - `:XOpen` will open the project in Xcode
+ - `:XOpen` will open the project or a specified file in Xcode
  - `:XSwitch` will switch the selected version of Xcode (requires sudo)
  - `:XSelectScheme` will let you manually specify the scheme to build and test
 

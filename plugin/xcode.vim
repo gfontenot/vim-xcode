@@ -1,7 +1,7 @@
 command! XBuild call <sid>build()
 command! XTest call <sid>test()
 command! XClean call <sid>clean()
-command! XOpen call <sid>open()
+command! -nargs=? -complete=file XOpen call <sid>open("<args>")
 command! -nargs=1 -complete=file XSwitch call <sid>switch("<args>")
 command! -nargs=1 XSelectScheme call <sid>set_scheme("<args>")
 
@@ -40,9 +40,14 @@ function! s:clean()
   endif
 endfunction
 
-function! s:open()
+function! s:open(path)
   if s:assert_project()
-    call system('source ' . s:bin_script('open_project.sh'))
+    if empty(a:path)
+      let file_path = "."
+    else
+      let file_path = a:path
+    endif
+    call system('source ' . s:bin_script('open_project.sh') . s:cli_args(file_path))
   endif
 endfunction
 
