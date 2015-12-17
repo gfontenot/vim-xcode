@@ -76,9 +76,9 @@ endfunction
 function! s:build_target()
   let xcworkspaceFile = glob('*.xcworkspace')
   if empty(xcworkspaceFile)
-    return '-project ' . s:project_file()
+    return '-project' . s:cli_args(s:project_file())
   else
-    return '-workspace ' . xcworkspaceFile
+    return '-workspace' . s:cli_args(xcworkspaceFile)
   endif
 endfunction
 
@@ -87,7 +87,7 @@ function! s:project_file()
 endfunction
 
 function! s:scheme()
-  return '-scheme '. s:scheme_name()
+  return '-scheme'. s:cli_args(s:scheme_name())
 endfunction
 
 function! s:scheme_name()
