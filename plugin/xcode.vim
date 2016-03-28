@@ -28,7 +28,7 @@ endfunction
 
 function! s:test()
   if s:assert_project()
-    let cmd =  s:base_command() . ' ' . s:test_destination() . ' test' . s:xcpretty_test()
+    let cmd =  s:base_command() . ' ' . s:destination() . ' test' . s:xcpretty_test()
     call s:run_command(cmd)
   endif
 endfunction
@@ -114,18 +114,14 @@ endfunction
 
 function! s:destination()
   if s:use_simulator()
-    return '-destination "generic/platform=iOS"'
+    return s:iphone_simulator_destination()
   else
     return s:osx_destination()
   endif
 endfunction
 
-function! s:test_destination()
-  if s:use_simulator()
-    return '-destination "platform=iOS Simulator,name=iPhone 6"'
-  else
-    return s:osx_destination()
-  endif
+function! s:iphone_simulator_destination()
+  return '-destination "platform=iOS Simulator,name=iPhone 6"'
 endfunction
 
 function! s:osx_destination()
