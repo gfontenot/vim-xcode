@@ -3,6 +3,7 @@ command! XTest call <sid>test()
 command! XClean call <sid>clean()
 command! -nargs=? -complete=file XOpen call <sid>open("<args>")
 command! -nargs=1 -complete=file XSwitch call <sid>switch("<args>")
+command! -nargs=1 -complete=file XSelectProject call <sid>set_project("<args>")
 command! -nargs=1 XSelectScheme call <sid>set_scheme("<args>")
 
 let s:default_run_command = '! {cmd}'
@@ -55,6 +56,12 @@ function! s:switch(target)
   execute '!sudo xcode-select -s' . s:cli_args(a:target)
 endfunction
 
+function! s:set_project(project)
+  let s:chosen_project = a:project
+  unlet! s:chosen_scheme
+  unlet! s:use_simulator
+endfunction
+
 function! s:set_scheme(scheme)
   let s:chosen_scheme = a:scheme
   unlet! s:use_simulator
@@ -88,7 +95,11 @@ function! s:build_target()
 endfunction
 
 function! s:project_file()
-  return globpath(expand('.'), '*.xcodeproj')
+  if !exists('s:chosen_project')
+    let s:chosen_project = split(globpath(expand('.'), '*.xcodeproj'), '\n')[0]
+  endif
+
+  return s:chosen_project
 endfunction
 
 function! s:scheme()
