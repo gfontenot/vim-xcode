@@ -13,8 +13,9 @@ CONTENTS                                                        *xcode-Contents*
         2.3  ............................. |xcode-:XClean|
         2.4  ............................. |xcode-:XOpen|
         2.5  ............................. |xcode-:XSwitch|
-        2.6  ............................. |xcode-:XSelectScheme|
-        2.7  ............................. |xcode-xcpretty|
+        2.6  ............................. |xcode-:XSelectProject|
+        2.7  ............................. |xcode-:XSelectScheme|
+        2.8  ............................. |xcode-xcpretty|
       3. Configuration ................. |xcode-Configuration|
         3.1 .............................. |xcode_run_command|
         3.2 .............................. |xcode_xcpretty_flags|
@@ -117,8 +118,18 @@ outside of Vim with `xcode-select`, but it's useful to have a quick shortcut
 for accessing that functionality quickly.
 
 ------------------------------------------------------------------------------
+                                                         *xcode-:XSelectProject*
+2.6 :XSelectProject~
+
+Set the project to build or test through `xcodebuild`.
+
+Specify the project to build or test. Calling this command resets the
+currently set SDK to build with, as well as the selected scheme. If you set a
+project that doesn't exist, `xcodebuild` will throw an error.
+
+------------------------------------------------------------------------------
                                                           *xcode-:XSelectScheme*
-2.6 :XSelectScheme~
+2.7 :XSelectScheme~
 
 Set the scheme to build or test through `xcodebuild`.
 
@@ -128,7 +139,7 @@ will throw an error.
 
 ------------------------------------------------------------------------------
                                                                 *xcode-xcpretty*
-2.7 xcpretty~
+2.8 xcpretty~
 
 If `xcpretty`[1] is installed and is available in your `$PATH`, `xcode.vim`
 will pipe all output through it to improve `xcodebuild`'s output. See
