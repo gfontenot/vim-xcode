@@ -96,7 +96,11 @@ endfunction
 
 function! s:project_file()
   if !exists('s:chosen_project')
-    let s:chosen_project = split(globpath(expand('.'), '*.xcodeproj'), '\n')[0]
+    if exists('g:xcode_project_file')
+      let s:chosen_project = g:xcode_project_file
+    else
+      let s:chosen_project = split(globpath(expand('.'), '*.xcodeproj'), '\n')[0]
+    endif
   endif
 
   return s:chosen_project
@@ -108,7 +112,11 @@ endfunction
 
 function! s:scheme_name()
   if !exists('s:chosen_scheme')
-    let s:chosen_scheme = system('source ' . s:bin_script('find_scheme.sh') . s:cli_args(s:project_file()))
+    if exists('g:xcode_default_scheme')
+      let s:chosen_scheme = g:xcode_default_scheme
+    else
+      let s:chosen_scheme = system('source ' . s:bin_script('find_scheme.sh') . s:cli_args(s:project_file()))
+    endif
   endif
 
   return s:chosen_scheme

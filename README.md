@@ -26,6 +26,31 @@ its own. It dynamically finds the project in the current working directory
    test
  - `:XSelectScheme` will let you manually specify the scheme to build and test
 
+### Project and Scheme configuration
+
+If `xcode.vim` is having trouble determining the project/scheme to use, you
+can set local variables to manually specify the configuration you expect:
+
+```
+let g:xcode_project_file = 'path/to/project.xcodeproj'
+let g:xcode_default_scheme = 'MyScheme'
+```
+
+Note that manually specifying a different project or scheme with the
+`:XSelectProject` or `:XSelectScheme` commands will override these values
+until you restart vim.
+
+This is most useful when placed inside a project-specific vimrc ([See the Argo
+vimrc as an example][argo-vimrc]). You can make sure Vim loads these local
+vimrc files by default by setting the following in your main vimrc:
+
+[argo-vimrc]: https://github.com/thoughtbot/Argo/blob/master/.vimrc
+
+```
+set secure  " Don't let external configs do scary shit
+set exrc    " Load local vimrc if found
+```
+
 ### `xcpretty` support
 
 [`xcpretty`] is a gem for improving the output of xcodebuild. By default, if

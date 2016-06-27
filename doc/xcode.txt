@@ -20,6 +20,8 @@ CONTENTS                                                        *xcode-Contents*
         3.1 .............................. |xcode_run_command|
         3.2 .............................. |xcode_xcpretty_flags|
         3.3 .............................. |xcode_xcpretty_testing_flags|
+        3.4 .............................. |xcode_project_file|
+        3.5 .............................. |xcode_default_scheme|
 
 ==============================================================================
 ABOUT (1)                                                          *xcode-About*
@@ -204,6 +206,33 @@ See the `xcpretty` documentation[6] for available options.
 Default: ''
 
 [6]: https://github.com/supermarin/xcpretty#formats
+
+------------------------------------------------------------------------------
+                                                            *xcode_project_file*
+3.4 g:xcode_project_file~
+
+The main project to use for building and testing.
+
+If `xcode.vim` routinely selects the wrong project, you can set this local
+variable to tell it which to use. This is useful if you have multiple projects
+at the root of your project and the one you would like to default to isn't the
+first alphabetically.
+
+If not set, `xcode.vim` will default to the first project file it finds
+alphabetically.
+
+------------------------------------------------------------------------------
+                                                          *xcode_default_scheme*
+3.5 g:xcode_default_scheme~
+
+The default scheme to use for building and testing.
+
+If `xcode.vim` routinely selects the wrong scheme, you can set this local
+variable to tell it which to use. This is useful if you have multiple schemes
+in your project, and they are occasionally reordered.
+
+If not set, `xcode.vim` will default to the first scheme listed as a result of
+`xcodebuild -list`
 
 ==============================================================================
 vim:tw=78:ts=8:ft=help:norl:
