@@ -3,5 +3,6 @@
 set -o pipefail
 
 xcodebuild -list -project "$@" 2>/dev/null \
-  | awk '/Schemes:/ { getline; print }' \
-  | tr -d "\n "
+  | awk '/Schemes:/,0' \
+  | tail -n +2 \
+  | sed -e "s/^[[:space:]]*//"

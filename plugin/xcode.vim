@@ -3,8 +3,12 @@ command! XTest call <sid>test()
 command! XClean call <sid>clean()
 command! -nargs=? -complete=file XOpen call <sid>open("<args>")
 command! -nargs=1 -complete=file XSwitch call <sid>switch("<args>")
-command! -nargs=1 -complete=file XSelectProject call <sid>set_project("<args>")
-command! -nargs=1 XSelectScheme call <sid>set_scheme("<args>")
+
+command! -nargs=1 -complete=custom,s:list_schemes
+      \ XSelectScheme call <sid>set_scheme("<args>")
+
+command! -nargs=1 -complete=custom,s:list_projects
+      \ XSelectProject call <sid>set_project("<args>")
 
 let s:default_run_command = '! {cmd}'
 let s:default_xcpretty_flags = '--color'
@@ -58,6 +62,7 @@ endfunction
 
 function! s:set_project(project)
   let s:chosen_project = a:project
+  unlet! s:available_schemes
   unlet! s:chosen_scheme
   unlet! s:use_simulator
 endfunction
@@ -99,11 +104,19 @@ function! s:project_file()
     if exists('g:xcode_project_file')
       let s:chosen_project = g:xcode_project_file
     else
-      let s:chosen_project = split(globpath(expand('.'), '*.xcodeproj'), '\n')[0]
+      let s:chosen_project = split(s:project_files(), '\n')[0]
     endif
   endif
 
   return s:chosen_project
+endfunction
+
+function! s:list_projects(a, l, f)
+  return s:project_files()
+endfunction
+
+function! s:project_files()
+  return globpath(expand('.'), '*.xcodeproj')
 endfunction
 
 function! s:scheme()
@@ -115,11 +128,23 @@ function! s:scheme_name()
     if exists('g:xcode_default_scheme')
       let s:chosen_scheme = g:xcode_default_scheme
     else
-      let s:chosen_scheme = system('source ' . s:bin_script('find_scheme.sh') . s:cli_args(s:project_file()))
+      let s:chosen_scheme = split(s:schemes(), '\n')[0]
     endif
   endif
 
   return s:chosen_scheme
+endfunction
+
+function! s:list_schemes(a, l, f)
+  return s:schemes()
+endfunction
+
+function! s:schemes()
+  if !exists('s:available_schemes')
+    let s:available_schemes = system('source ' . s:bin_script('list_schemes.sh') . s:cli_args(s:project_file()))
+  endif
+
+  return s:available_schemes
 endfunction
 
 function! s:use_simulator()
