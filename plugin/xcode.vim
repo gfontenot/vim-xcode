@@ -1,14 +1,14 @@
-command! XBuild call <sid>build()
-command! XTest call <sid>test()
-command! XClean call <sid>clean()
-command! -nargs=? -complete=file XOpen call <sid>open("<args>")
-command! -nargs=1 -complete=file XSwitch call <sid>switch("<args>")
+command! Xbuild call <sid>build()
+command! Xtest call <sid>test()
+command! Xclean call <sid>clean()
+command! -nargs=? -complete=file Xopen call <sid>open("<args>")
+command! -nargs=1 -complete=file Xswitch call <sid>switch("<args>")
 
 command! -nargs=1 -complete=custom,s:list_schemes
-      \ XSelectScheme call <sid>set_scheme("<args>")
+      \ Xscheme call <sid>set_scheme("<args>")
 
 command! -nargs=1 -complete=custom,s:list_projects
-      \ XSelectProject call <sid>set_project("<args>")
+      \ Xproject call <sid>set_project("<args>")
 
 let s:default_run_command = '! {cmd}'
 let s:default_xcpretty_flags = '--color'

@@ -8,13 +8,13 @@ CONTENTS                                                        *xcode-Contents*
 
       1. About.......................... |xcode-About|
       2. Usage ......................... |xcode-Usage|
-        2.1  ............................. |xcode-:XBuild|
-        2.2  ............................. |xcode-:XTest|
-        2.3  ............................. |xcode-:XClean|
-        2.4  ............................. |xcode-:XOpen|
-        2.5  ............................. |xcode-:XSwitch|
-        2.6  ............................. |xcode-:XSelectProject|
-        2.7  ............................. |xcode-:XSelectScheme|
+        2.1  ............................. |xcode-:Xbuild|
+        2.2  ............................. |xcode-:Xtest|
+        2.3  ............................. |xcode-:Xclean|
+        2.4  ............................. |xcode-:Xopen|
+        2.5  ............................. |xcode-:Xswitch|
+        2.6  ............................. |xcode-:Xproject|
+        2.7  ............................. |xcode-:Xscheme|
         2.8  ............................. |xcode-xcpretty|
       3. Configuration ................. |xcode-Configuration|
         3.1 .............................. |xcode_run_command|
@@ -57,8 +57,8 @@ CocoaPods[4]), it will build the scheme through the workspace.
 [4]: https://cocoapods.org/
 
 ------------------------------------------------------------------------------
-                                                                 *xcode-:XBuild*
-2.1 :XBuild~
+                                                                 *xcode-:Xbuild*
+2.1 :Xbuild~
 
 Build the project with `xcodebuild`.
 
@@ -67,20 +67,20 @@ parses the scheme information from the project. This scheme info is cached
 with your Vim session, so subsequent runs will execute faster.
 
 ------------------------------------------------------------------------------
-                                                                  *xcode-:XTest*
-2.2 :XTest~
+                                                                  *xcode-:Xtest*
+2.2 :Xtest~
 
 Run the project tests through `xcodebuild`.
 
 The first time this command is run, there will be a small delay as the plugin
 parses the SDK information for the scheme, and might be a delay while it
-parses the scheme information as well (if |:XBuild| hasn't been run
+parses the scheme information as well (if |:Xbuild| hasn't been run
 previously). This information is cached with the Vim session, so subsequent
 runs will execute faster.
 
 ------------------------------------------------------------------------------
-                                                                 *xcode-:XClean*
-2.3 :XClean~
+                                                                 *xcode-:Xclean*
+2.3 :Xclean~
 
 Clean the project's build directory with `xcodebuild`
 
@@ -89,8 +89,8 @@ grabs stale build objects. Cleaning the project's build directory can
 occasionally solve these issues.
 
 ------------------------------------------------------------------------------
-                                                                  *xcode-:XOpen*
-2.4 :XOpen~
+                                                                  *xcode-:Xopen*
+2.4 :Xopen~
 
 Open the project or a specified file in Xcode
 
@@ -109,8 +109,8 @@ while you have the project itself open, Xcode will actually just open the
 specified file inside the already-open project.
 
 ------------------------------------------------------------------------------
-                                                                *xcode-:XSwitch*
-2.5 :XSwitch~
+                                                                *xcode-:Xswitch*
+2.5 :Xswitch~
 
 Switch the selected version of Xcode with `xcode-select`.
 
@@ -120,8 +120,8 @@ outside of Vim with `xcode-select`, but it's useful to have a quick shortcut
 for accessing that functionality quickly.
 
 ------------------------------------------------------------------------------
-                                                         *xcode-:XSelectProject*
-2.6 :XSelectProject~
+                                                               *xcode-:Xproject*
+2.6 :Xproject~
 
 Set the project to build or test through `xcodebuild`.
 
@@ -130,8 +130,8 @@ currently set SDK to build with, as well as the selected scheme. If you set a
 project that doesn't exist, `xcodebuild` will throw an error.
 
 ------------------------------------------------------------------------------
-                                                          *xcode-:XSelectScheme*
-2.7 :XSelectScheme~
+                                                                *xcode-:Xscheme*
+2.7 :Xscheme~
 
 Set the scheme to build or test through `xcodebuild`.
 

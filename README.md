@@ -17,14 +17,14 @@ Plugin 'gfontenot/vim-xcode'
 its own. It dynamically finds the project in the current working directory
 (with support for workspaces as well) and builds the first scheme it finds.
 
- - `:XBuild` will build the project
- - `:XTest` will test the project
- - `:XClean` will clean the project's build directory
- - `:XOpen` will open the project or a specified file in Xcode
- - `:XSwitch` will switch the selected version of Xcode (requires sudo)
- - `:XSelectProject` will let you manually specify the project to build and
+ - `:Xbuild` will build the project
+ - `:Xtest` will test the project
+ - `:Xclean` will clean the project's build directory
+ - `:Xopen` will open the project or a specified file in Xcode
+ - `:Xswitch` will switch the selected version of Xcode (requires sudo)
+ - `:Xproject` will let you manually specify the project to build and
    test
- - `:XSelectScheme` will let you manually specify the scheme to build and test
+ - `:Xscheme` will let you manually specify the scheme to build and test
 
 ### Project and Scheme configuration
 
@@ -37,8 +37,8 @@ let g:xcode_default_scheme = 'MyScheme'
 ```
 
 Note that manually specifying a different project or scheme with the
-`:XSelectProject` or `:XSelectScheme` commands will override these values
-until you restart vim.
+`:Xproject` or `:Xscheme` commands will override these values until you
+restart vim.
 
 This is most useful when placed inside a project-specific vimrc ([See the Argo
 vimrc as an example][argo-vimrc]). You can make sure Vim loads these local
