@@ -105,7 +105,7 @@ function! s:assert_project()
 endfunction
 
 function! s:base_command()
-  return 'xcodebuild NSUnbufferedIO=YES ' . s:build_target() . ' ' . s:scheme()
+  return 'NSUnbufferedIO=YES xcrun xcodebuild ' . s:build_target_with_scheme()
 endfunction
 
 function! s:run_command()
