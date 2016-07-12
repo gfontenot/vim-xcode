@@ -88,7 +88,7 @@ function! s:run_command(cmd)
 endfunction
 
 function! s:assert_project()
-  if empty(s:project_file())
+  if empty(s:project_file()) && empty(s:workspace_file())
     echohl ErrorMsg | echo 'No Xcode project file found!' | echohl None
     return 0
   else
