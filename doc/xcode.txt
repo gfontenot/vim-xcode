@@ -9,14 +9,15 @@ CONTENTS                                                        *xcode-Contents*
       1. About.......................... |xcode-About|
       2. Usage ......................... |xcode-Usage|
         2.1  ............................. |xcode-:Xbuild|
-        2.2  ............................. |xcode-:Xtest|
-        2.3  ............................. |xcode-:Xclean|
-        2.4  ............................. |xcode-:Xopen|
-        2.5  ............................. |xcode-:Xswitch|
-        2.6  ............................. |xcode-:Xworkspace|
-        2.7  ............................. |xcode-:Xproject|
-        2.8  ............................. |xcode-:Xscheme|
-        2.9  ............................. |xcode-xcpretty|
+        2.2  ............................. |xcode-:Xrun|
+        2.3  ............................. |xcode-:Xtest|
+        2.4  ............................. |xcode-:Xclean|
+        2.5  ............................. |xcode-:Xopen|
+        2.6  ............................. |xcode-:Xswitch|
+        2.7  ............................. |xcode-:Xworkspace|
+        2.8  ............................. |xcode-:Xproject|
+        2.9  ............................. |xcode-:Xscheme|
+        2.10 ............................. |xcode-xcpretty|
       3. Configuration ................. |xcode-Configuration|
         3.1 .............................. |xcode_run_command|
         3.2 .............................. |xcode_xcpretty_flags|
@@ -69,8 +70,17 @@ parses the scheme information from the project. This scheme info is cached
 with your Vim session, so subsequent runs will execute faster.
 
 ------------------------------------------------------------------------------
+                                                                   *xcode-:Xrun*
+2.2 :Xrun
+
+Run the built app in the simulator.
+
+This command requires that the project had previously been built with
+|:Xbuild|.
+
+------------------------------------------------------------------------------
                                                                   *xcode-:Xtest*
-2.2 :Xtest~
+2.3 :Xtest~
 
 Run the project tests through `xcodebuild`.
 
@@ -82,7 +92,7 @@ runs will execute faster.
 
 ------------------------------------------------------------------------------
                                                                  *xcode-:Xclean*
-2.3 :Xclean~
+2.4 :Xclean~
 
 Clean the project's build directory with `xcodebuild`
 
@@ -92,7 +102,7 @@ occasionally solve these issues.
 
 ------------------------------------------------------------------------------
                                                                   *xcode-:Xopen*
-2.4 :Xopen~
+2.5 :Xopen~
 
 Open the project or a specified file in Xcode
 
@@ -112,7 +122,7 @@ specified file inside the already-open project.
 
 ------------------------------------------------------------------------------
                                                                 *xcode-:Xswitch*
-2.5 :Xswitch~
+2.6 :Xswitch~
 
 Switch the selected version of Xcode with `xcode-select`.
 
@@ -123,7 +133,7 @@ for accessing that functionality quickly.
 
 ------------------------------------------------------------------------------
                                                              *xcode-:Xworkspace*
-2.6 :Xworkspace~
+2.7 :Xworkspace~
 
 Set the workspace to build or test through `xcodebuild`.
 
@@ -133,7 +143,7 @@ workspace that doesn't exist, `xcodebuild` will throw an error.
 
 ------------------------------------------------------------------------------
                                                                *xcode-:Xproject*
-2.7 :Xproject~
+2.8 :Xproject~
 
 Set the project to build or test through `xcodebuild`.
 
@@ -143,7 +153,7 @@ project that doesn't exist, `xcodebuild` will throw an error.
 
 ------------------------------------------------------------------------------
                                                                 *xcode-:Xscheme*
-2.8 :Xscheme~
+2.9 :Xscheme~
 
 Set the scheme to build or test through `xcodebuild`.
 
@@ -153,7 +163,7 @@ will throw an error.
 
 ------------------------------------------------------------------------------
                                                                 *xcode-xcpretty*
-2.9 xcpretty~
+2.10 xcpretty~
 
 If `xcpretty`[1] is installed and is available in your `$PATH`, `xcode.vim`
 will pipe all output through it to improve `xcodebuild`'s output. See
