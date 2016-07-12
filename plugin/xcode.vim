@@ -1,4 +1,5 @@
 command! Xbuild call <sid>build()
+command! Xrun call <sid>run()
 command! Xtest call <sid>test()
 command! Xclean call <sid>clean()
 command! -nargs=? -complete=file Xopen call <sid>open("<args>")
@@ -30,6 +31,13 @@ endfunction
 function! s:build()
   if s:assert_project()
     let cmd = s:base_command() . ' ' . s:destination() . s:xcpretty()
+    call s:run_command(cmd)
+  endif
+endfunction
+
+function s:run()
+  if s:assert_project()
+    let cmd =  s:bin_script('run_ios_app') . ' ' . s:build_target_with_scheme()
     call s:run_command(cmd)
   endif
 endfunction
