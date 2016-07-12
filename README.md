@@ -18,7 +18,7 @@ its own. It dynamically finds the project in the current working directory
 (with support for workspaces as well) and builds the first scheme it finds.
 
  - `:Xbuild` will build the project
- - `:Xrun` will run the app in the iOS Simulator
+ - `:Xrun` will run the app in the iOS Simulator or locally on your Mac
  - `:Xtest` will test the project
  - `:Xclean` will clean the project's build directory
  - `:Xopen` will open the project or a specified file in Xcode

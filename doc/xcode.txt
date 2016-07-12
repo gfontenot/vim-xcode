@@ -73,7 +73,7 @@ with your Vim session, so subsequent runs will execute faster.
                                                                    *xcode-:Xrun*
 2.2 :Xrun
 
-Run the built app in the simulator.
+Run the built app in the iOS simulator or locally on your Mac.
 
 This command requires that the project had previously been built with
 |:Xbuild|.
