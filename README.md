@@ -5,10 +5,11 @@ Plugin for building and testing Xcode projects from within Vim
 
 ## Installation
 
-Recommended installation with [vundle](https://github.com/gmarik/vundle):
+If you don't have a preferred installation method check out
+[vim-plug](https://github.com/junegunn/vim-plug):
 
 ```vim
-Plugin 'gfontenot/vim-xcode'
+Plug 'gfontenot/vim-xcode'
 ```
 
 ## Usage
