@@ -13,15 +13,17 @@ CONTENTS                                                        *xcode-Contents*
         2.3  ............................. |xcode-:Xclean|
         2.4  ............................. |xcode-:Xopen|
         2.5  ............................. |xcode-:Xswitch|
-        2.6  ............................. |xcode-:Xproject|
-        2.7  ............................. |xcode-:Xscheme|
-        2.8  ............................. |xcode-xcpretty|
+        2.6  ............................. |xcode-:Xworkspace|
+        2.7  ............................. |xcode-:Xproject|
+        2.8  ............................. |xcode-:Xscheme|
+        2.9  ............................. |xcode-xcpretty|
       3. Configuration ................. |xcode-Configuration|
         3.1 .............................. |xcode_run_command|
         3.2 .............................. |xcode_xcpretty_flags|
         3.3 .............................. |xcode_xcpretty_testing_flags|
-        3.4 .............................. |xcode_project_file|
-        3.5 .............................. |xcode_default_scheme|
+        3.4 .............................. |xcode_workspace_file|
+        3.5 .............................. |xcode_project_file|
+        3.6 .............................. |xcode_default_scheme|
 
 ==============================================================================
 ABOUT (1)                                                          *xcode-About*
@@ -120,8 +122,18 @@ outside of Vim with `xcode-select`, but it's useful to have a quick shortcut
 for accessing that functionality quickly.
 
 ------------------------------------------------------------------------------
+                                                             *xcode-:Xworkspace*
+2.6 :Xworkspace~
+
+Set the workspace to build or test through `xcodebuild`.
+
+Specify the workspace to build or test. Calling this command resets the
+currently set SDK to build with, as well as the selected scheme. If you set a
+workspace that doesn't exist, `xcodebuild` will throw an error.
+
+------------------------------------------------------------------------------
                                                                *xcode-:Xproject*
-2.6 :Xproject~
+2.7 :Xproject~
 
 Set the project to build or test through `xcodebuild`.
 
@@ -131,7 +143,7 @@ project that doesn't exist, `xcodebuild` will throw an error.
 
 ------------------------------------------------------------------------------
                                                                 *xcode-:Xscheme*
-2.7 :Xscheme~
+2.8 :Xscheme~
 
 Set the scheme to build or test through `xcodebuild`.
 
@@ -141,7 +153,7 @@ will throw an error.
 
 ------------------------------------------------------------------------------
                                                                 *xcode-xcpretty*
-2.8 xcpretty~
+2.9 xcpretty~
 
 If `xcpretty`[1] is installed and is available in your `$PATH`, `xcode.vim`
 will pipe all output through it to improve `xcodebuild`'s output. See
@@ -208,22 +220,36 @@ Default: ''
 [6]: https://github.com/supermarin/xcpretty#formats
 
 ------------------------------------------------------------------------------
+                                                          *xcode_workspace_file*
+3.4 g:xcode_workspace_file~
+
+The main workspace to use for building and testing.
+
+If `xcode.vim` routinely selects the wrong workspace, you can set this local
+variable to tell it which to use. This is useful if you have multiple
+workspaces at the root of your project directory and the one you would like to
+default to isn't the first alphabetically.
+
+If not set, `xcode.vim` will default to the first workspace file it finds
+alphabetically.
+
+------------------------------------------------------------------------------
                                                             *xcode_project_file*
-3.4 g:xcode_project_file~
+3.5 g:xcode_project_file~
 
 The main project to use for building and testing.
 
 If `xcode.vim` routinely selects the wrong project, you can set this local
 variable to tell it which to use. This is useful if you have multiple projects
-at the root of your project and the one you would like to default to isn't the
-first alphabetically.
+at the root of your project directory and the one you would like to default to
+isn't the first alphabetically.
 
 If not set, `xcode.vim` will default to the first project file it finds
 alphabetically.
 
 ------------------------------------------------------------------------------
                                                           *xcode_default_scheme*
-3.5 g:xcode_default_scheme~
+3.6 g:xcode_default_scheme~
 
 The default scheme to use for building and testing.
 

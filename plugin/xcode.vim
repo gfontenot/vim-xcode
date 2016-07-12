@@ -10,6 +10,9 @@ command! -nargs=1 -complete=custom,s:list_schemes
 command! -nargs=1 -complete=custom,s:list_projects
       \ Xproject call <sid>set_project("<args>")
 
+command! -nargs=1 -complete=custom,s:list_workspaces
+      \ Xworkspace call <sid>set_workspace("<args>")
+
 let s:default_run_command = '! {cmd}'
 let s:default_xcpretty_flags = '--color'
 let s:default_xcpretty_testing_flags = ''
@@ -60,6 +63,13 @@ function! s:switch(target)
   execute '!sudo xcode-select -s' . s:cli_args(a:target)
 endfunction
 
+function! s:set_workspace(workspace)
+  let s:chosen_workspace = a:workspace
+  unlet! s:available_schemes
+  unlet! s:chosen_scheme
+  unlet! s:use_simulator
+endfunction
+
 function! s:set_project(project)
   let s:chosen_project = a:project
   unlet! s:available_schemes
@@ -91,12 +101,31 @@ function! s:base_command()
 endfunction
 
 function! s:build_target()
-  let xcworkspaceFile = glob('*.xcworkspace')
-  if empty(xcworkspaceFile)
+  if empty(s:workspace_file())
     return '-project' . s:cli_args(s:project_file())
   else
-    return '-workspace' . s:cli_args(xcworkspaceFile)
+    return '-workspace' . s:cli_args(s:workspace_file())
   endif
+endfunction
+
+function! s:workspace_file()
+  if !exists('s:chosen_workspace')
+    if exists('g:xcode_workspace_file')
+      let s:chosen_workspace = g:xcode_workspace_file
+    else
+      let s:chosen_workspace = split(s:workspace_files(), '\n')[0]
+    endif
+  endif
+
+  return s:chosen_workspace
+endfunction
+
+function! s:list_workspaces(a, l, f)
+  return s:workspace_files()
+endfunction
+
+function! s:workspace_files()
+  return globpath(expand('.'), '*.xcworkspace')
 endfunction
 
 function! s:project_file()
