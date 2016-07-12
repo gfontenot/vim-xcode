@@ -100,6 +100,10 @@ function! s:base_command()
   return 'xcodebuild NSUnbufferedIO=YES ' . s:build_target() . ' ' . s:scheme()
 endfunction
 
+function! s:build_target_with_scheme()
+  return s:build_target() . ' ' . s:scheme()
+endfunction
+
 function! s:build_target()
   if empty(s:workspace_file())
     return '-project' . s:cli_args(s:project_file())
@@ -170,7 +174,7 @@ endfunction
 
 function! s:schemes()
   if !exists('s:available_schemes')
-    let s:available_schemes = system('source ' . s:bin_script('list_schemes.sh') . s:cli_args(s:project_file()))
+    let s:available_schemes = system('source ' . s:bin_script('list_schemes.sh') . ' ' . s:build_target())
   endif
 
   return s:available_schemes
@@ -178,7 +182,7 @@ endfunction
 
 function! s:use_simulator()
   if !exists('s:use_simulator')
-    call system('source ' . s:bin_script('use_simulator.sh') . s:cli_args(s:project_file(), s:scheme_name()))
+    call system('source ' . s:bin_script('use_simulator.sh') . ' ' . s:build_target_with_scheme())
     let s:use_simulator = !v:shell_error
   endif
 
