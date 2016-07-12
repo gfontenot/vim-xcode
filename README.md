@@ -23,23 +23,25 @@ its own. It dynamically finds the project in the current working directory
  - `:Xclean` will clean the project's build directory
  - `:Xopen` will open the project or a specified file in Xcode
  - `:Xswitch` will switch the selected version of Xcode (requires sudo)
- - `:Xproject` will let you manually specify the project to build and
-   test
+ - `:Xworkspace` will let you manually specify the workspace to build and test
+ - `:Xproject` will let you manually specify the project to build and test
  - `:Xscheme` will let you manually specify the scheme to build and test
 
 ### Project and Scheme configuration
 
-If `xcode.vim` is having trouble determining the project/scheme to use, you
-can set local variables to manually specify the configuration you expect:
+If `xcode.vim` is having trouble determining the workspace/project/scheme to
+use, you can set local variables to manually specify the configuration you
+expect:
 
 ```
+let g:xcode_workspace_file = 'path/to/workspace.xcworkspace'
 let g:xcode_project_file = 'path/to/project.xcodeproj'
 let g:xcode_default_scheme = 'MyScheme'
 ```
 
 Note that manually specifying a different project or scheme with the
-`:Xproject` or `:Xscheme` commands will override these values until you
-restart vim.
+`:Xworkspace`, `:Xproject`, or `:Xscheme` commands will override these values
+until you restart vim.
 
 This is most useful when placed inside a project-specific vimrc ([See the Argo
 vimrc as an example][argo-vimrc]). You can make sure Vim loads these local
