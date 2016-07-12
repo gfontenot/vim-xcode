@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+build_path=$(xcodebuild -showBuildSettings $@ 2>/dev/null | egrep "\bBUILD_DIR\b" | sed -E "s/[[:space:]]+BUILD_DIR = //")
+app_path=$(find "$build_path" -iname "*.app" | head -n1)
+
+open "$app_path"

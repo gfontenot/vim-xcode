@@ -37,7 +37,7 @@ endfunction
 
 function s:run()
   if s:assert_project()
-    let cmd =  s:bin_script('run_ios_app') . ' ' . s:build_target_with_scheme()
+    let cmd = s:run_command()
     call s:execute_command(cmd)
   endif
 endfunction
@@ -106,6 +106,22 @@ endfunction
 
 function! s:base_command()
   return 'xcodebuild NSUnbufferedIO=YES ' . s:build_target() . ' ' . s:scheme()
+endfunction
+
+function! s:run_command()
+  if s:use_simulator()
+    return s:iphone_simulator_run_command()
+  else
+    return s:mac_run_command()
+  endif
+endfunction
+
+function! s:iphone_simulator_run_command()
+  return s:bin_script('run_ios_app') . ' ' . s:build_target_with_scheme()
+endfunction
+
+function! s:mac_run_command()
+  return s:bin_script('run_mac_app') . ' ' . s:build_target_with_scheme()
 endfunction
 
 function! s:build_target_with_scheme()
