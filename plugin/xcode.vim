@@ -1,4 +1,6 @@
-command! Xbuild call <sid>build()
+command! -nargs=? -complete=customlist,s:build_actions
+      \ Xbuild call <sid>build("<args>")
+
 command! Xrun call <sid>run()
 command! Xtest call <sid>test()
 command! Xclean call <sid>clean()
@@ -28,11 +30,21 @@ function! s:cli_args(...)
   return ' ' . join(map(copy(a:000), 'shellescape(v:val)'))
 endfunction
 
-function! s:build()
+function! s:build(actions)
   if s:assert_project()
-    let cmd = s:base_command() . ' ' . s:destination() . s:xcpretty()
+    if empty(a:actions)
+      let actions = 'build'
+    else
+      let actions = a:actions
+    endif
+
+    let cmd = s:base_command(actions) . s:xcpretty()
     call s:execute_command(cmd)
   endif
+endfunction
+
+function! s:build_actions(a, l, f)
+  return ['build', 'analyze', 'archive', 'test', 'installsrc', 'install', 'clean']
 endfunction
 
 function s:run()
@@ -44,14 +56,14 @@ endfunction
 
 function! s:test()
   if s:assert_project()
-    let cmd =  s:base_command() . ' ' . s:destination() . ' test' . s:xcpretty_test()
+    let cmd =  s:base_command('test') . s:xcpretty_test()
     call s:execute_command(cmd)
   endif
 endfunction
 
 function! s:clean()
   if s:assert_project()
-    let cmd = s:base_command() . ' clean' . s:xcpretty()
+    let cmd = s:base_command('clean') . s:xcpretty()
     call s:execute_command(cmd)
   endif
 endfunction
@@ -104,8 +116,13 @@ function! s:assert_project()
   endif
 endfunction
 
-function! s:base_command()
-  return 'NSUnbufferedIO=YES xcrun xcodebuild ' . s:build_target_with_scheme()
+function! s:base_command(actions)
+  return 'NSUnbufferedIO=YES xcrun xcodebuild '
+        \ . a:actions
+        \ . ' '
+        \ . s:build_target_with_scheme()
+        \ . ' '
+        \ . s:destination()
 endfunction
 
 function! s:run_command()

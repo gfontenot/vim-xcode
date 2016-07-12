@@ -69,6 +69,10 @@ The first time this command is run, there will be a small delay as the plugin
 parses the scheme information from the project. This scheme info is cached
 with your Vim session, so subsequent runs will execute faster.
 
+You can also optionally pass build actions to |:Xbuild| if you'd like to
+override the default of `build`. This could be used, for example, to run
+`xcodebuild clean build` if you wanted to clean before building.
+
 ------------------------------------------------------------------------------
                                                                    *xcode-:Xrun*
 2.2 :Xrun
