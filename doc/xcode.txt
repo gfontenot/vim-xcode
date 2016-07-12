@@ -19,7 +19,7 @@ CONTENTS                                                        *xcode-Contents*
         2.9  ............................. |xcode-:Xscheme|
         2.10 ............................. |xcode-xcpretty|
       3. Configuration ................. |xcode-Configuration|
-        3.1 .............................. |xcode_run_command|
+        3.1 .............................. |xcode_runner_command|
         3.2 .............................. |xcode_xcpretty_flags|
         3.3 .............................. |xcode_xcpretty_testing_flags|
         3.4 .............................. |xcode_workspace_file|
@@ -176,8 +176,8 @@ CONFIGURATION (3)                                          *xcode-Configuration*
 You can configure `xcode.vim` with the following settings:
 
 ------------------------------------------------------------------------------
-                                                             *xcode_run_command*
-3.1 g:xcode_run_command~
+                                                          *xcode_runner_command*
+3.1 g:xcode_runner_command~
 
 The command to use when executing `xcodebuild` commands.
 
@@ -189,7 +189,7 @@ You can customize this if you want to pass the command through a custom script
 in your `$PATH`, or use something like `vim-tmux-runner`[4] or
 `vim-dispatch`[5] to make builds asynchronous
 
-  let g:xcode_run_command = 'VtrSendCommandToRunner! {cmd}'
+  let g:xcode_runner_command = 'VtrSendCommandToRunner! {cmd}'
 
 Default: '! {cmd}`
 

@@ -14,7 +14,7 @@ command! -nargs=1 -complete=custom,s:list_projects
 command! -nargs=1 -complete=custom,s:list_workspaces
       \ Xworkspace call <sid>set_workspace("<args>")
 
-let s:default_run_command = '! {cmd}'
+let s:default_runner_command = '! {cmd}'
 let s:default_xcpretty_flags = '--color'
 let s:default_xcpretty_testing_flags = ''
 
@@ -214,10 +214,10 @@ function! s:osx_destination()
 endfunction
 
 function! s:runner_template()
-  if exists('g:xcode_run_command')
-    return g:xcode_run_command
+  if exists('g:xcode_runner_command')
+    return g:xcode_runner_command
   else
-    return s:default_run_command
+    return s:default_runner_command
   endif
 endfunction
 

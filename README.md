@@ -72,11 +72,11 @@ from within Vim).
 By default, `xcode.vim` will take over the current terminal session to build
 and display the build/test log. However, with long build times, this might not
 be ideal. To help with this, `xcode.vim` allows you to customize the runner by
-setting `g:xcode_run_command`. This variable should be a template string,
+setting `g:xcode_runner_command`. This variable should be a template string,
 where `{cmd}` will be replaced by the `xcodebuild` command.
 
 ```vim
-let g:xcode_run_command = 'VtrSendCommandToRunner! {cmd}'
+let g:xcode_runner_command = 'VtrSendCommandToRunner! {cmd}'
 ```
 
 This is useful for using `xcode.vim` with other plugins such as
