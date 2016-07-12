@@ -17,7 +17,8 @@ CONTENTS                                                        *xcode-Contents*
         2.7  ............................. |xcode-:Xworkspace|
         2.8  ............................. |xcode-:Xproject|
         2.9  ............................. |xcode-:Xscheme|
-        2.10 ............................. |xcode-xcpretty|
+        2.10 ............................. |xcode-:Xsimulator|
+        2.11 ............................. |xcode-xcpretty|
       3. Configuration ................. |xcode-Configuration|
         3.1 .............................. |xcode_runner_command|
         3.2 .............................. |xcode_xcpretty_flags|
@@ -25,6 +26,7 @@ CONTENTS                                                        *xcode-Contents*
         3.4 .............................. |xcode_workspace_file|
         3.5 .............................. |xcode_project_file|
         3.6 .............................. |xcode_default_scheme|
+        3.7 .............................. |xcode_default_simulator|
 
 ==============================================================================
 ABOUT (1)                                                          *xcode-About*
@@ -81,6 +83,11 @@ Run the built app in the iOS simulator or locally on your Mac.
 
 This command requires that the project had previously been built with
 |:Xbuild|.
+
+You can also optionally pass a simulator name to |:Xrun| if you'd like to
+override the default for this specific session. Note that if the app was build
+for a different architecture than the specified simulator, the simulator will
+fail to launch.
 
 ------------------------------------------------------------------------------
                                                                   *xcode-:Xtest*
@@ -166,8 +173,17 @@ set SDK to build with. If you set a scheme that doesn't exist, `xcodebuild`
 will throw an error.
 
 ------------------------------------------------------------------------------
+                                                             *xcode-:Xsimulator*
+2.10 :Xsimulator~
+
+Set the simulator to use for building/testing/running.
+
+This will set the simulator to use for all commands while Xcode is running. It
+will be reset to the default value (`"iPhone 6s"`) when Vim restarts.
+
+------------------------------------------------------------------------------
                                                                 *xcode-xcpretty*
-2.10 xcpretty~
+2.11 xcpretty~
 
 If `xcpretty`[1] is installed and is available in your `$PATH`, `xcode.vim`
 will pipe all output through it to improve `xcodebuild`'s output. See
@@ -273,6 +289,17 @@ in your project, and they are occasionally reordered.
 
 If not set, `xcode.vim` will default to the first scheme listed as a result of
 `xcodebuild -list`
+
+------------------------------------------------------------------------------
+                                                       *xcode_default_simulator*
+3.6 g:xcode_default_simulator~
+
+The default simulator to use for building/testing/running.
+
+If you'd like to make sure that you use a specific device by default every
+time you build/run/test your iOS app, you can set this variable to do so.
+
+If not set, `xcode.vim` will default to `"iPhone 6s"`
 
 ==============================================================================
 vim:tw=78:ts=8:ft=help:norl:

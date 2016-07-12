@@ -1,7 +1,9 @@
 command! -nargs=? -complete=customlist,s:build_actions
       \ Xbuild call <sid>build("<args>")
 
-command! Xrun call <sid>run()
+command! -nargs=? -complete=custom,s:list_simulators
+      \ Xrun call <sid>run("<args>")
+
 command! Xtest call <sid>test()
 command! Xclean call <sid>clean()
 command! -nargs=? -complete=file Xopen call <sid>open("<args>")
@@ -16,9 +18,13 @@ command! -nargs=1 -complete=custom,s:list_projects
 command! -nargs=1 -complete=custom,s:list_workspaces
       \ Xworkspace call <sid>set_workspace("<args>")
 
+command! -nargs=1 -complete=custom,s:list_simulators
+      \ Xsimulator call <sid>set_simulator("<args>")
+
 let s:default_runner_command = '! {cmd}'
 let s:default_xcpretty_flags = '--color'
 let s:default_xcpretty_testing_flags = ''
+let s:default_simulator = 'iPhone 6s'
 
 let s:plugin_path = expand('<sfile>:p:h:h')
 
@@ -47,9 +53,15 @@ function! s:build_actions(a, l, f)
   return ['build', 'analyze', 'archive', 'test', 'installsrc', 'install', 'clean']
 endfunction
 
-function s:run()
+function s:run(simulator)
   if s:assert_project()
-    let cmd = s:run_command()
+    if empty(a:simulator)
+      let simulator = s:simulator()
+    else
+      let simulator = a:simulator
+    endif
+
+    let cmd = s:run_command(simulator)
     call s:execute_command(cmd)
   endif
 endfunction
@@ -102,6 +114,10 @@ function! s:set_scheme(scheme)
   unlet! s:use_simulator
 endfunction
 
+function! s:set_simulator(simulator)
+  let s:chosen_simulator = a:'simulator
+endfunction
+
 function! s:execute_command(cmd)
   let run_cmd = substitute(s:runner_template(), '{cmd}', a:cmd, 'g')
   execute run_cmd
@@ -126,16 +142,19 @@ function! s:base_command(actions)
         \ . s:destination()
 endfunction
 
-function! s:run_command()
+function! s:run_command(simulator)
   if s:use_simulator()
-    return s:iphone_simulator_run_command()
+    return s:iphone_simulator_run_command(a:simulator)
   else
     return s:mac_run_command()
   endif
 endfunction
 
-function! s:iphone_simulator_run_command()
-  return s:bin_script('run_ios_app') . ' ' . s:build_target_with_scheme()
+function! s:iphone_simulator_run_command(simulator)
+  return 'SIMULATOR="' . a:simulator . '" '
+        \ . s:bin_script('run_ios_app')
+        \ . ' '
+        \ . s:build_target_with_scheme()
 endfunction
 
 function! s:mac_run_command()
@@ -222,6 +241,30 @@ function! s:schemes()
   return s:available_schemes
 endfunction
 
+function! s:simulator()
+  if !exists('s:chosen_simulator')
+    if exists('g:xcode_default_simulator')
+      let s:chosen_simulator = g:xcode_default_simulator
+    else
+      let s:chosen_simulator = s:default_simulator
+    endif
+  endif
+
+  return s:chosen_simulator
+endfunction
+
+function! s:list_simulators(a, l, f)
+  return s:available_simulators()
+endfunction
+
+function! s:available_simulators()
+  if !exists('s:simulators')
+    let s:simulators = system('source ' . s:bin_script('list_available_simulators.sh'))
+  endif
+
+  return s:simulators
+endfunction
+
 function! s:use_simulator()
   if !exists('s:use_simulator')
     call system('source ' . s:bin_script('use_simulator.sh') . ' ' . s:build_target_with_scheme())
@@ -240,7 +283,7 @@ function! s:destination()
 endfunction
 
 function! s:iphone_simulator_destination()
-  return '-destination "platform=iOS Simulator,name=iPhone 6"'
+  return '-destination "platform=iOS Simulator,name=' . s:simulator() . '"'
 endfunction
 
 function! s:osx_destination()
