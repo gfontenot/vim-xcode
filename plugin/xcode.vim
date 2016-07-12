@@ -31,28 +31,28 @@ endfunction
 function! s:build()
   if s:assert_project()
     let cmd = s:base_command() . ' ' . s:destination() . s:xcpretty()
-    call s:run_command(cmd)
+    call s:execute_command(cmd)
   endif
 endfunction
 
 function s:run()
   if s:assert_project()
     let cmd =  s:bin_script('run_ios_app') . ' ' . s:build_target_with_scheme()
-    call s:run_command(cmd)
+    call s:execute_command(cmd)
   endif
 endfunction
 
 function! s:test()
   if s:assert_project()
     let cmd =  s:base_command() . ' ' . s:destination() . ' test' . s:xcpretty_test()
-    call s:run_command(cmd)
+    call s:execute_command(cmd)
   endif
 endfunction
 
 function! s:clean()
   if s:assert_project()
     let cmd = s:base_command() . ' clean' . s:xcpretty()
-    call s:run_command(cmd)
+    call s:execute_command(cmd)
   endif
 endfunction
 
@@ -90,7 +90,7 @@ function! s:set_scheme(scheme)
   unlet! s:use_simulator
 endfunction
 
-function! s:run_command(cmd)
+function! s:execute_command(cmd)
   let run_cmd = substitute(s:runner_template(), '{cmd}', a:cmd, 'g')
   execute run_cmd
 endfunction
