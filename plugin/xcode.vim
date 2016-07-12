@@ -96,7 +96,7 @@ function! s:execute_command(cmd)
 endfunction
 
 function! s:assert_project()
-  if empty(s:project_file()) && empty(s:workspace_file())
+  if empty(s:project_files()) && empty(s:workspace_files())
     echohl ErrorMsg | echo 'No Xcode project file found!' | echohl None
     return 0
   else
@@ -113,7 +113,7 @@ function! s:build_target_with_scheme()
 endfunction
 
 function! s:build_target()
-  if empty(s:workspace_file())
+  if empty(s:workspace_files())
     return '-project' . s:cli_args(s:project_file())
   else
     return '-workspace' . s:cli_args(s:workspace_file())
