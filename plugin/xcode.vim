@@ -117,7 +117,8 @@ function! s:assert_project()
 endfunction
 
 function! s:base_command(actions)
-  return 'NSUnbufferedIO=YES xcrun xcodebuild '
+  return 'set -o pipefail; '
+        \ . 'NSUnbufferedIO=YES xcrun xcodebuild '
         \ . a:actions
         \ . ' '
         \ . s:build_target_with_scheme()
