@@ -3,11 +3,11 @@
 device_type="iPhone 6s"
 
 build_path=$(xcodebuild -showBuildSettings $@ 2>/dev/null | egrep "\bBUILD_DIR\b" | sed -E "s/[[:space:]]+BUILD_DIR = //")
-app_path=$(find $build_path -iname "*.app" | head -n1)
+app_path=$(find "$build_path" -iname "*.app" | head -n1)
 app_id=$(defaults read "$app_path/Info" "CFBundleIdentifier")
 uuid=$(xcrun simctl list devices | grep "$device_type" | head -n1 | grep -E "[0-9A-F-]{8,}" -o)
 
-xcrun instruments -w $uuid 2>/dev/null
+xcrun instruments -w "$uuid" 2>/dev/null
 
-xcrun simctl install booted $app_path
-xcrun simctl launch booted $app_id
+xcrun simctl install booted "$app_path"
+xcrun simctl launch booted "$app_id"
