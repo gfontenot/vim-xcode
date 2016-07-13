@@ -47,7 +47,7 @@ function! s:build_actions(a, l, f)
   return ['build', 'analyze', 'archive', 'test', 'installsrc', 'install', 'clean']
 endfunction
 
-function s:run()
+function! s:run()
   if s:assert_project()
     let cmd = s:run_command()
     call s:execute_command(cmd)
