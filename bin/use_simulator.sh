@@ -2,5 +2,5 @@
 
 set -o pipefail
 
-xcrun xcodebuild -showBuildSettings $@ 2>/dev/null \
+xcrun xcodebuild -showBuildSettings "$@" 2>/dev/null \
   | grep -q CORRESPONDING_SIMULATOR_SDK_NAME
