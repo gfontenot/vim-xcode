@@ -267,8 +267,8 @@ endfunction
 
 function! s:use_simulator()
   if !exists('s:use_simulator')
-    call system('source ' . s:bin_script('use_simulator.sh') . ' ' . s:build_target_with_scheme())
-    let s:use_simulator = !v:shell_error
+    let platform = system('source ' . s:bin_script('project_platform.sh') . ' ' . s:build_target_with_scheme())
+    let s:use_simulator = platform ==# "ios"
   endif
 
   return s:use_simulator
