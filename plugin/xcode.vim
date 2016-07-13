@@ -53,7 +53,7 @@ function! s:build_actions(a, l, f)
   return ['build', 'analyze', 'archive', 'test', 'installsrc', 'install', 'clean']
 endfunction
 
-function s:run(simulator)
+function! s:run(simulator)
   if s:assert_project()
     if empty(a:simulator)
       let simulator = s:simulator()
