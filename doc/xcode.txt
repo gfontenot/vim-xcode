@@ -79,15 +79,10 @@ override the default of `build`. This could be used, for example, to run
                                                                    *xcode-:Xrun*
 2.2 :Xrun
 
-Run the built app in the iOS simulator or locally on your Mac.
-
-This command requires that the project had previously been built with
-|:Xbuild|.
+Build and run the app in the iOS simulator or locally on your Mac.
 
 You can also optionally pass a simulator name to |:Xrun| if you'd like to
-override the default for this specific session. Note that if the app was build
-for a different architecture than the specified simulator, the simulator will
-fail to launch.
+override the default for this specific session.
 
 ------------------------------------------------------------------------------
                                                                   *xcode-:Xtest*

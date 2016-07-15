@@ -44,7 +44,7 @@ function! s:build(actions)
       let actions = a:actions
     endif
 
-    let cmd = s:base_command(actions) . s:xcpretty()
+    let cmd = s:base_command(actions, s:simulator()) . s:xcpretty()
     call s:execute_command(cmd)
   endif
 endfunction
@@ -61,21 +61,23 @@ function! s:run(simulator)
       let simulator = a:simulator
     endif
 
-    let cmd = s:run_command(simulator)
+    let build_cmd = s:base_command('build', simulator) . s:xcpretty()
+    let run_cmd = s:run_command(simulator)
+    let cmd = build_cmd . ' \&\& ' . run_cmd
     call s:execute_command(cmd)
   endif
 endfunction
 
 function! s:test()
   if s:assert_project()
-    let cmd =  s:base_command('test') . s:xcpretty_test()
+    let cmd =  s:base_command('test', s:simulator()) . s:xcpretty_test()
     call s:execute_command(cmd)
   endif
 endfunction
 
 function! s:clean()
   if s:assert_project()
-    let cmd = s:base_command('clean') . s:xcpretty()
+    let cmd = s:base_command('clean', s:simulator()) . s:xcpretty()
     call s:execute_command(cmd)
   endif
 endfunction
@@ -132,14 +134,14 @@ function! s:assert_project()
   endif
 endfunction
 
-function! s:base_command(actions)
+function! s:base_command(actions, simulator)
   return 'set -o pipefail; '
         \ . 'NSUnbufferedIO=YES xcrun xcodebuild '
         \ . a:actions
         \ . ' '
         \ . s:build_target_with_scheme()
         \ . ' '
-        \ . s:destination()
+        \ . s:destination(a:simulator)
 endfunction
 
 function! s:run_command(simulator)
@@ -274,16 +276,16 @@ function! s:use_simulator()
   return s:use_simulator
 endfunction
 
-function! s:destination()
+function! s:destination(simulator)
   if s:use_simulator()
-    return s:iphone_simulator_destination()
+    return s:iphone_simulator_destination(a:simulator)
   else
     return s:osx_destination()
   endif
 endfunction
 
-function! s:iphone_simulator_destination()
-  return '-destination "platform=iOS Simulator,name=' . s:simulator() . '"'
+function! s:iphone_simulator_destination(simulator)
+  return '-destination "platform=iOS Simulator,name=' . a:simulator . '"'
 endfunction
 
 function! s:osx_destination()
