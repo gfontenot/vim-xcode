@@ -25,6 +25,7 @@ let s:default_runner_command = '! {cmd}'
 let s:default_xcpretty_flags = '--color'
 let s:default_xcpretty_testing_flags = ''
 let s:default_simulator = 'iPhone 6s'
+let s:default_configuration = 'Debug'
 
 let s:plugin_path = expand('<sfile>:p:h:h')
 
@@ -120,6 +121,10 @@ function! s:set_simulator(simulator)
   let s:chosen_simulator = a:'simulator
 endfunction
 
+function! s:set_configuration(configuration)
+  let s:chosen_configuration = a:configuration
+endfunction
+
 function! s:execute_command(cmd)
   let run_cmd = substitute(s:runner_template(), '{cmd}', a:cmd, 'g')
   execute run_cmd
@@ -139,7 +144,7 @@ function! s:base_command(actions, simulator)
         \ . 'NSUnbufferedIO=YES xcrun xcodebuild '
         \ . a:actions
         \ . ' '
-        \ . s:build_target_with_scheme()
+        \ . s:build_target_with_options()
         \ . ' '
         \ . s:destination(a:simulator)
 endfunction
@@ -156,15 +161,15 @@ function! s:iphone_simulator_run_command(simulator)
   return 'SIMULATOR="' . a:simulator . '" '
         \ . s:bin_script('run_ios_app')
         \ . ' '
-        \ . s:build_target_with_scheme()
+        \ . s:build_target_with_options()
 endfunction
 
 function! s:mac_run_command()
-  return s:bin_script('run_mac_app') . ' ' . s:build_target_with_scheme()
+  return s:bin_script('run_mac_app') . ' ' . s:build_target_with_options()
 endfunction
 
-function! s:build_target_with_scheme()
-  return s:build_target() . ' ' . s:scheme()
+function! s:build_target_with_options()
+  return s:build_target() . ' ' . s:scheme() . ' ' . s:configuration()
 endfunction
 
 function! s:build_target()
@@ -243,6 +248,22 @@ function! s:schemes()
   return s:available_schemes
 endfunction
 
+function! s:configuration()
+  return '-configuration' . s:cli_args(s:configuration_name())
+endfunction
+
+function! s:configuration_name()
+  if !exists('s:chosen_configuration')
+    if exists('g:xcode_default_configuration')
+      let s:chosen_configuration = g:xcode_default_configuration
+    else
+      let s:chosen_configuration = s:default_configuration
+    endif
+  endif
+
+  return s:chosen_configuration
+endfunction
+
 function! s:simulator()
   if !exists('s:chosen_simulator')
     if exists('g:xcode_default_simulator')
@@ -269,7 +290,7 @@ endfunction
 
 function! s:use_simulator()
   if !exists('s:use_simulator')
-    let platform = system('source ' . s:bin_script('project_platform.sh') . ' ' . s:build_target_with_scheme())
+    let platform = system('source ' . s:bin_script('project_platform.sh') . ' ' . s:build_target_with_options())
     let s:use_simulator = platform ==# "ios"
   endif
 
