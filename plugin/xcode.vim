@@ -162,6 +162,8 @@ function! s:iphone_simulator_run_command(simulator)
         \ . s:bin_script('run_ios_app')
         \ . ' '
         \ . s:build_target_with_options()
+        \ . ' '
+        \ . s:iphone_simulator_sdk()
 endfunction
 
 function! s:mac_run_command()
@@ -307,6 +309,10 @@ endfunction
 
 function! s:iphone_simulator_destination(simulator)
   return '-destination "platform=iOS Simulator,name=' . a:simulator . '"'
+endfunction
+
+function! s:iphone_simulator_sdk()
+  return '-sdk iphonesimulator'
 endfunction
 
 function! s:osx_destination()
