@@ -27,6 +27,7 @@ CONTENTS                                                        *xcode-Contents*
         3.5 .............................. |xcode_project_file|
         3.6 .............................. |xcode_default_scheme|
         3.7 .............................. |xcode_default_simulator|
+        3.8 .............................. |xcode_default_configuration|
 
 ==============================================================================
 ABOUT (1)                                                          *xcode-About*
@@ -287,7 +288,7 @@ If not set, `xcode.vim` will default to the first scheme listed as a result of
 
 ------------------------------------------------------------------------------
                                                        *xcode_default_simulator*
-3.6 g:xcode_default_simulator~
+3.7 g:xcode_default_simulator~
 
 The default simulator to use for building/testing/running.
 
@@ -295,6 +296,18 @@ If you'd like to make sure that you use a specific device by default every
 time you build/run/test your iOS app, you can set this variable to do so.
 
 If not set, `xcode.vim` will default to `"iPhone 6s"`
+
+------------------------------------------------------------------------------
+                                                   *xcode_default_configuration*
+3.8 g:xcode_default_configuration~
+
+The default build configuration to use for building/testing/running.
+
+If you'd like to make sure that you use a specific build configuration by
+default every time you build/run/test your iOS app, you can set this variable
+to do so.
+
+If not set, `xcode.vim` will default to `"Debug"`
 
 ==============================================================================
 vim:tw=78:ts=8:ft=help:norl:
