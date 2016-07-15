@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-build_path=$(xcodebuild -showBuildSettings "$@" 2>/dev/null | egrep "\bBUILD_DIR\b" | sed -E "s/[[:space:]]+BUILD_DIR = //")
+build_path=$(xcodebuild -showBuildSettings "$@" 2>/dev/null | sed -nE "s/^[[:space:]]+CONFIGURATION_BUILD_DIR = //p")
 app_path=$(find "$build_path" -iname "*.app" | head -n1)
 app_id=$(defaults read "$app_path/Info" "CFBundleIdentifier")
 uuid=$(xcrun simctl list devices | grep "$SIMULATOR" | head -n1 | grep -E "[0-9A-F-]{8,}" -o)
