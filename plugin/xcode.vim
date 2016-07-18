@@ -21,11 +21,15 @@ command! -nargs=1 -complete=custom,s:list_workspaces
 command! -nargs=1 -complete=custom,s:list_simulators
       \ Xsimulator call <sid>set_simulator("<args>")
 
-if has('nvim')
-  let s:default_runner_command = 'terminal {cmd}'
-else
-  let s:default_runner_command = '! {cmd}'
-endif
+function! s:system_runner()
+  if has('nvim')
+    return 'terminal'
+  else
+    return '!'
+  endif
+endfunction
+
+let s:default_runner_command = s:system_runner() . ' {cmd}'
 
 let s:default_xcpretty_flags = '--color'
 let s:default_xcpretty_testing_flags = ''
@@ -99,13 +103,7 @@ function! s:open(path)
 endfunction
 
 function! s:switch(target)
-  if has('nvim')
-    let runner = '!'
-  else
-    let runner = 'terminal'
-  endif
-
-  execute runner . ' sudo xcode-select -s' . s:cli_args(a:target)
+  execute s:system_runner() . ' sudo xcode-select -s' . s:cli_args(a:target)
 endfunction
 
 function! s:set_workspace(workspace)
