@@ -117,7 +117,7 @@ function! s:set_scheme(scheme)
 endfunction
 
 function! s:set_simulator(simulator)
-  let s:chosen_simulator = a:'simulator
+  let s:chosen_simulator = a:simulator
 endfunction
 
 function! s:execute_command(cmd)
