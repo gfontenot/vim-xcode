@@ -1,7 +1,7 @@
 command! -nargs=? -complete=customlist,s:build_actions
       \ Xbuild call <sid>build("<args>")
 
-command! -nargs=? -complete=custom,s:list_simulators
+command! -nargs=? -complete=customlist,s:list_simulators
       \ Xrun call <sid>run("<args>")
 
 command! Xtest call <sid>test()
@@ -9,7 +9,7 @@ command! Xclean call <sid>clean()
 command! -nargs=? -complete=file Xopen call <sid>open("<args>")
 command! -nargs=1 -complete=file Xswitch call <sid>switch("<args>")
 
-command! -nargs=1 -complete=custom,s:list_schemes
+command! -nargs=1 -complete=customlist,s:list_schemes
       \ Xscheme call <sid>set_scheme("<args>")
 
 command! -nargs=1 -complete=custom,s:list_projects
@@ -18,7 +18,7 @@ command! -nargs=1 -complete=custom,s:list_projects
 command! -nargs=1 -complete=custom,s:list_workspaces
       \ Xworkspace call <sid>set_workspace("<args>")
 
-command! -nargs=1 -complete=custom,s:list_simulators
+command! -nargs=1 -complete=customlist,s:list_simulators
       \ Xsimulator call <sid>set_simulator("<args>")
 
 function! s:system_runner()
@@ -233,7 +233,7 @@ function! s:scheme_name()
     if exists('g:xcode_default_scheme')
       let s:chosen_scheme = g:xcode_default_scheme
     else
-      let s:chosen_scheme = split(s:schemes(), '\n')[0]
+      let s:chosen_scheme = s:schemes()[0]
     endif
   endif
 
@@ -246,7 +246,7 @@ endfunction
 
 function! s:schemes()
   if !exists('s:available_schemes')
-    let s:available_schemes = system('source ' . s:bin_script('list_schemes.sh') . ' ' . s:build_target())
+    let s:available_schemes = systemlist('source ' . s:bin_script('list_schemes.sh') . ' ' . s:build_target())
   endif
 
   return s:available_schemes
@@ -270,7 +270,7 @@ endfunction
 
 function! s:available_simulators()
   if !exists('s:simulators')
-    let s:simulators = system('source ' . s:bin_script('list_available_simulators.sh'))
+    let s:simulators = systemlist('source ' . s:bin_script('list_available_simulators.sh'))
   endif
 
   return s:simulators
