@@ -189,7 +189,7 @@ function! s:workspace_file()
     if exists('g:xcode_workspace_file')
       let s:chosen_workspace = g:xcode_workspace_file
     else
-      let s:chosen_workspace = split(s:workspace_files(), '\n')[0]
+      let s:chosen_workspace = s:workspace_files()[0]
     endif
   endif
 
@@ -201,7 +201,7 @@ function! s:list_workspaces(a, l, f)
 endfunction
 
 function! s:workspace_files()
-  return globpath(expand('.'), '*.xcworkspace')
+  return globpath(expand('.'), '*.xcworkspace', 0, 1)
 endfunction
 
 function! s:project_file()
@@ -209,7 +209,7 @@ function! s:project_file()
     if exists('g:xcode_project_file')
       let s:chosen_project = g:xcode_project_file
     else
-      let s:chosen_project = split(s:project_files(), '\n')[0]
+      let s:chosen_project = s:project_files()[0]
     endif
   endif
 
@@ -221,7 +221,7 @@ function! s:list_projects(a, l, f)
 endfunction
 
 function! s:project_files()
-  return globpath(expand('.'), '*.xcodeproj')
+  return globpath(expand('.'), '*.xcodeproj', 0, 1)
 endfunction
 
 function! s:scheme()
