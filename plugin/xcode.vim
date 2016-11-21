@@ -135,8 +135,24 @@ function! s:execute_command(cmd)
 endfunction
 
 function! s:assert_project()
-  if empty(s:project_files()) && empty(s:workspace_files())
+  if s:project_exists() || s:workspace_exists()
+    return 1
+  else
     echohl ErrorMsg | echo 'No Xcode project file found!' | echohl None
+    return 0
+  endif
+endfunction
+
+function! s:project_exists()
+  if empty(s:project_files()) && !exists('g:xcode_project_file')
+    return 0
+  else
+    return 1
+  endif
+endfunction
+
+function! s:workspace_exists()
+  if empty(s:workspace_files()) && !exists('g:xcode_workspace_file')
     return 0
   else
     return 1
