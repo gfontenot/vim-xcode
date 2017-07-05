@@ -94,7 +94,11 @@ endfunction
 function! s:open(path)
   if s:assert_project()
     if empty(a:path)
-      let file_path = "."
+      if s:workspace_exists()
+        let file_path = s:workspace_file()
+      else
+        let file_path = s:project_file()
+      endif
     else
       let file_path = a:path
     endif
