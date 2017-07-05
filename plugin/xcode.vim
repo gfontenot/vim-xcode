@@ -193,10 +193,10 @@ function! s:build_target_with_scheme()
 endfunction
 
 function! s:build_target()
-  if empty(s:workspace_files())
-    return '-project' . s:cli_args(s:project_file())
-  else
+  if s:workspace_exists()
     return '-workspace' . s:cli_args(s:workspace_file())
+  else
+    return '-project' . s:cli_args(s:project_file())
   endif
 endfunction
 
