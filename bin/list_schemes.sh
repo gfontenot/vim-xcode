@@ -4,7 +4,7 @@ set -o pipefail
 
 ignore_pattern="$1"
 
-if [[ -z "$ignore_pattern" ]]; then
+if [[ "$ignore_pattern" == "-workspace" ]]; then
     xcrun xcodebuild -list 2>/dev/null \
       | awk '/Schemes:/,0' \
       | tail -n +2 \
