@@ -37,6 +37,8 @@ let s:default_simulator = 'iPhone 6s'
 
 let s:plugin_path = expand('<sfile>:p:h:h')
 
+let s:xcode_scheme_ignore_pattern = ''
+
 function! s:bin_script(name)
   return s:plugin_path . '/bin/' . a:name
 endfunction
@@ -266,7 +268,14 @@ endfunction
 
 function! s:schemes()
   if !exists('s:available_schemes')
-    let s:available_schemes = systemlist('source ' . s:bin_script('list_schemes.sh') . ' ' . s:build_target())
+    if exists('g:xcode_scheme_ignore_pattern')
+      " Do I need an s: style local var here?
+      let s:xcode_scheme_ignore_pattern = g:xcode_scheme_ignore_pattern
+      echo "Ignore pattern: " . s:xcode_scheme_ignore_pattern
+      let s:available_schemes = systemlist('source ' . s:bin_script('list_schemes.sh' . ' ' . s:xcode_scheme_ignore_pattern) . ' ' . s:build_target())
+    else
+      let s:available_schemes = systemlist('source ' . s:bin_script('list_schemes.sh') . ' ' . s:build_target())
+    endif
   endif
 
   return s:available_schemes
