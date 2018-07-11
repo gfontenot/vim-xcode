@@ -2,8 +2,17 @@
 
 set -o pipefail
 
-xcrun xcodebuild -list "$@" 2>/dev/null \
-  | awk '/Schemes:/,0' \
-  | tail -n +2 \
-  | sed -E '/demo|Demo|Example|example/d' \
-  | sed -e "s/^[[:space:]]*//"
+ignore_pattern="$1"
+
+if [[ -z "$ignore_pattern" ]]; then
+    xcrun xcodebuild -list 2>/dev/null \
+      | awk '/Schemes:/,0' \
+      | tail -n +2 \
+      | sed -e "s/^[[:space:]]*//"
+else
+    xcrun xcodebuild -list 2>/dev/null \
+      | awk '/Schemes:/,0' \
+      | tail -n +2 \
+      | sed -E "$ignore_pattern" \
+      | sed -e "s/^[[:space:]]*//"
+fi
