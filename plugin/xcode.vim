@@ -274,7 +274,7 @@ endfunction
 function! s:get_available_schemes()
   let scheme_command = 'source ' . s:bin_script('list_schemes.sh')
   if exists('g:xcode_scheme_ignore_pattern')
-     let scheme_command .= ' ' . '-i' . s:cli_args(g:xcode_scheme_ignore_pattern)
+    let scheme_command .= ' ' . '-i' . s:cli_args(g:xcode_scheme_ignore_pattern)
   endif
 
   let scheme_command .= ' ' . '-t' . s:build_target()
