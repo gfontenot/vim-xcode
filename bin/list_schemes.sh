@@ -25,6 +25,8 @@ schemes="$(
 )"
 
 if [[ $ignore_pattern ]]; then
-    sed -E "$ignore_pattern"
+    echo "$schemes" | sed -E "$ignore_pattern"
+else
+    echo "$schemes"
 fi
 
