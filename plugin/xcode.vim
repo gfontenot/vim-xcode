@@ -277,7 +277,7 @@ function! s:get_available_schemes()
     let scheme_command .= ' ' . '-i' . s:cli_args(g:xcode_scheme_ignore_pattern)
   endif
 
-  let scheme_command .= ' ' . '-t' . s:build_target()
+  let scheme_command .= ' ' . '-t' . ' ' . shellescape(s:build_target())
   let s:available_schemes = systemlist(scheme_command)
 endfunction
 
