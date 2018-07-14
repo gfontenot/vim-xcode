@@ -27,9 +27,9 @@ schemes="$(
   | sed -e "s/^[[:space:]]*//"
 )"
 
-if [[ $ignore_pattern ]]; then
-  echo "$schemes" | sed -E "$ignore_pattern"
-else
+if [ -z "$ignore_pattern" ]; then
   echo "$schemes"
+else
+  echo "$schemes" | sed -E "$ignore_pattern"
 fi
 
