@@ -197,10 +197,22 @@ function! s:build_target_with_scheme()
 endfunction
 
 function! s:build_target()
+  return s:build_target_flag() . ' ' . s:build_target_argument()
+endfunction
+
+function! s:build_target_flag()
   if s:workspace_exists()
-    return '-workspace' . s:cli_args(s:workspace_file())
+    return '-workspace'
   else
-    return '-project' . s:cli_args(s:project_file())
+    return '-project'
+  endif
+endfunction
+
+function! s:build_target_argument()
+  if s:workspace_exists()
+    return s:cli_args(s:workspace_file())
+  else
+    return s:cli_args(s:project_file())
   endif
 endfunction
 
@@ -272,12 +284,21 @@ function! s:schemes()
 endfunction
 
 function! s:get_available_schemes()
-  let scheme_command = 'source ' . s:bin_script('list_schemes.sh')
+  let scheme_command = 'source '
+                    \ . s:bin_script('list_schemes.sh')
+                    \ . ' '
+                    \ . '-f'
+                    \ . ' '
+                    \ . s:build_target_flag()
+                    \ . ' '
+                    \ . '-t'
+                    \ . ' '
+                    \ . s:build_target_argument()
+
   if exists('g:xcode_scheme_ignore_pattern')
     let scheme_command .= ' ' . '-i' . s:cli_args(g:xcode_scheme_ignore_pattern)
   endif
 
-  let scheme_command .= ' ' . '-t' . ' ' . shellescape(s:build_target())
   let s:available_schemes = systemlist(scheme_command)
 endfunction
 
