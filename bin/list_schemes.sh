@@ -2,9 +2,10 @@
 
 set -o pipefail
 
-while getopts "t:i:" opt; do
+while getopts "f:t:i:" opt; do
   case $opt in
-    t) flag_and_target="$OPTARG";;
+    f) flag="$OPTARG";;
+    t) target="$OPTARG";;
     i) ignore_pattern="$OPTARG";;
     \?)
       echo "Invalid option: -$OPTARG" >&2
@@ -16,9 +17,6 @@ while getopts "t:i:" opt; do
       ;;
   esac
 done
-
-flag="$(echo "$flag_and_target" | cut -d ' ' -f1)"
-target="$(echo "$flag_and_target" | cut -d ' ' -f2)"
 
 schemes="$(
   xcrun xcodebuild -list "$flag" "$target" 2>/dev/null \
