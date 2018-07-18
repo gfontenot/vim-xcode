@@ -202,9 +202,9 @@ endfunction
 
 function! s:build_target_flag()
   if s:workspace_exists()
-    return '-workspace'
+    return s:cli_args('-workspace')
   else
-    return '-project'
+    return s:cli_args('-project')
   endif
 endfunction
 
@@ -288,11 +288,9 @@ function! s:get_available_schemes()
                     \ . s:bin_script('list_schemes.sh')
                     \ . ' '
                     \ . '-f'
-                    \ . ' '
                     \ . s:build_target_flag()
                     \ . ' '
                     \ . '-t'
-                    \ . ' '
                     \ . s:build_target_argument()
 
   if exists('g:xcode_scheme_ignore_pattern')
