@@ -26,7 +26,8 @@ CONTENTS                                                        *xcode-Contents*
         3.4 .............................. |xcode_workspace_file|
         3.5 .............................. |xcode_project_file|
         3.6 .............................. |xcode_default_scheme|
-        3.7 .............................. |xcode_default_simulator|
+        3.7 .............................. |xcode_scheme_ignore_pattern|
+        3.8 .............................. |xcode_default_simulator|
 
 ==============================================================================
 ABOUT (1)                                                          *xcode-About*
@@ -286,8 +287,22 @@ If not set, `xcode.vim` will default to the first scheme listed as a result of
 `xcodebuild -list`
 
 ------------------------------------------------------------------------------
+                                                       *xcode_scheme_ignore_pattern*
+3.7 g:xcode_scheme_ignore_pattern~
+
+The optional ignore pattern when listing/building Xcode schemes.
+
+Patterns can be any entended regular expression. This setting is useful if you
+have multiple schemes in your project/workspace, and you wish to always
+ignore demo apps for example. Also, setting this scheme can help you avoid
+having to set an xcode_default_scheme for each project.
+
+If not set, `xcode.vim` will default to the first scheme listed as a result of
+`xcodebuild -list` or the scheme set as the `xcode_default_scheme`.
+
+------------------------------------------------------------------------------
                                                        *xcode_default_simulator*
-3.6 g:xcode_default_simulator~
+3.8 g:xcode_default_simulator~
 
 The default simulator to use for building/testing/running.
 
