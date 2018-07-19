@@ -4,7 +4,7 @@ set -o pipefail
 
 while getopts "f:t:i:" opt; do
   case $opt in
-    f) flag="$OPTARG";;
+    f) target_type_flag="$OPTARG";;
     t) target="$OPTARG";;
     i) ignore_pattern="$OPTARG";;
     \?)
@@ -19,7 +19,7 @@ while getopts "f:t:i:" opt; do
 done
 
 schemes="$(
-  xcrun xcodebuild -list "$flag" "$target" 2>/dev/null \
+  xcrun xcodebuild -list "$target_type_flag" "$target" 2>/dev/null \
   | awk '/Schemes:/,0' \
   | tail -n +2 \
   | sed -e "s/^[[:space:]]*//"
@@ -30,4 +30,3 @@ if [ -z "$ignore_pattern" ]; then
 else
   echo "$schemes" | sed -E "$ignore_pattern"
 fi
-
