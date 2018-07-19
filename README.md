@@ -41,6 +41,13 @@ let g:xcode_project_file = 'path/to/project.xcodeproj'
 let g:xcode_default_scheme = 'MyScheme'
 ```
 
+If setting a scheme for each project doesn't work for you,
+you can set an ignore pattern to filter out schemes you don't
+want to be selected by default.
+```
+let g:xcode_scheme_ignore_pattern = "/Demo|Example/d"
+```
+
 You can also specify a custom default simulator to use:
 
 ```
