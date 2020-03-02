@@ -297,6 +297,12 @@ function! s:get_available_schemes()
     let scheme_command .= ' ' . '-i' . s:cli_args(g:xcode_scheme_ignore_pattern)
   endif
 
+  if exists('g:xcode_scheme_source_ignore')
+    for item in g:xcode_scheme_source_ignore
+      let scheme_command .= ' ' . '-e' . s:cli_args(item)
+    endfor
+  endif
+
   let s:available_schemes = systemlist(scheme_command)
 endfunction
 

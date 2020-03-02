@@ -2,11 +2,14 @@
 
 set -o pipefail
 
-while getopts "f:t:i:" opt; do
+ignore_schemes=()
+
+while getopts "f:t:i:e:" opt; do
   case $opt in
     f) target_type_flag="$OPTARG";;
     t) target="$OPTARG";;
     i) ignore_pattern="$OPTARG";;
+    e) ignore_schemes+=("$OPTARG");;
     \?)
       echo "Invalid option: -$OPTARG" >&2
       exit 1
