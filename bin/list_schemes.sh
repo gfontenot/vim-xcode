@@ -10,6 +10,9 @@ get_schemes() {
 }
 
 get_sources_ignore() {
+  if [ ! -e "$1" ]; then
+    return
+  fi
   case "$1" in
     *xcworkspace) type='-workspace';;
     *xcodeproj) type='-project';;
