@@ -9,3 +9,4 @@ xcrun instruments -w "$uuid" 2>/dev/null
 
 xcrun simctl install booted "$app_path"
 xcrun simctl launch booted "$app_id"
+tail -f "$HOME/Library/Logs/CoreSimulator/$uuid/system.log"
