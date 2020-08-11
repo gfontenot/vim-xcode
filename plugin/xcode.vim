@@ -1,6 +1,9 @@
 command! -nargs=? -complete=customlist,s:build_actions
       \ Xbuild call <sid>build("<args>")
 
+command! -nargs=? -complete=customlist,s:compiler_actions
+      \ Xcompiler call <sid>compiler("<args>")
+
 command! -nargs=? -complete=customlist,s:list_simulators
       \ Xrun call <sid>run("<args>")
 
@@ -60,6 +63,30 @@ endfunction
 
 function! s:build_actions(a, l, f)
   return ['build', 'analyze', 'archive', 'test', 'installsrc', 'install', 'clean']
+endfunction
+
+function! s:compiler(actions) abort
+  if s:assert_project()
+    let simulator = s:simulator()
+    let run_cmd = ''
+
+    if empty(a:actions)
+      let actions = 'build'
+    elseif a:actions == 'run'
+      let actions = 'build'
+      let run_cmd = ' && '.s:run_command(simulator)
+    else
+      let actions = a:actions
+    endif
+
+    let cmd = s:base_command(actions, simulator) . s:xcpretty()
+    let g:xcode_compiler_cmd = cmd . run_cmd
+    compiler! xcode
+  endif
+endfunction
+
+function! s:compiler_actions(a, l, f)
+  return s:build_actions(a:a, a:l, a:f) + ['run']
 endfunction
 
 function! s:run(simulator)
