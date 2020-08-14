@@ -1,14 +1,14 @@
-if exists("current_compiler")
+if exists('current_compiler')
     finish
 endif
-let current_compiler = "swiftc"
+let current_compiler = 'xcode'
 
 " vint: -ProhibitAbbreviationOption
 let s:save_cpo = &cpo
 set cpo&vim
 " vint: +ProhibitAbbreviationOption
 
-if exists(":CompilerSet") != 2
+if exists(':CompilerSet') != 2
     command -nargs=* CompilerSet setlocal <args>
 endif
 
@@ -21,7 +21,8 @@ call setbufvar(bufnr('%'), '&makeprg', g:xcode_compiler_cmd)
 CompilerSet errorformat=
             \[x]\ %trror:\ %m\ at\ %l:%c\ in\ %f.,
             \[x]\ %f:%l:%c:\ %m,
-            \[!]\ %f:%l:%c:\ %m
+            \[!]\ %f:%l:%c:\ %m,
+            \%f:%l
 
 " vint: -ProhibitAbbreviationOption
 let &cpo = s:save_cpo
