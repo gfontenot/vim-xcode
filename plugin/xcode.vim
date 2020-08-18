@@ -1,7 +1,7 @@
 command! -nargs=? -complete=customlist,s:build_actions
       \ Xbuild call <sid>build("<args>")
 
-command! -bang -nargs=? -complete=customlist,s:compiler_actions
+command! -bang -bar -nargs=? -complete=customlist,s:compiler_actions
       \ Xcompiler call <sid>compiler(<bang>0, "<args>")
 
 command! -nargs=? -complete=customlist,s:list_simulators
