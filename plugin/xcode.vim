@@ -397,7 +397,7 @@ function! s:runner_template()
 endfunction
 
 function! s:xcpretty()
-  if executable('xcpretty')
+  if executable('xcpretty') && !get(g:, 'xcode_disable_xcpretty', 0)
     return ' | xcpretty ' . s:xcpretty_flags()
   else
     return ''
