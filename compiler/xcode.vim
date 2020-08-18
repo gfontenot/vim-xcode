@@ -19,6 +19,9 @@ endif
 call setbufvar(bufnr('%'), '&makeprg', g:xcode_compiler_cmd)
 
 CompilerSet errorformat=
+            \%f:%l:%c:\ %trror:\ %m,
+            \%f:%l:%c:\ %tarning:\ %m,
+            \%trror:\ %m\ at\ %l:%c\ in\ %f.,
             \[x]\ %trror:\ %m\ at\ %l:%c\ in\ %f.,
             \❌\ %trror:\ %m\ at\ %l:%c\ in\ %f.,
             \[!]\ %tarning:\ %m\ at\ %l:%c\ in\ %f.,
