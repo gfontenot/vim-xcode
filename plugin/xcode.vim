@@ -1,8 +1,8 @@
 command! -nargs=? -complete=customlist,s:build_actions
       \ Xbuild call <sid>build("<args>")
 
-command! -nargs=? -complete=customlist,s:compiler_actions
-      \ Xcompiler call <sid>compiler("<args>")
+command! -bang -nargs=? -complete=customlist,s:compiler_actions
+      \ Xcompiler call <sid>compiler(<bang>0, "<args>")
 
 command! -nargs=? -complete=customlist,s:list_simulators
       \ Xrun call <sid>run("<args>")
@@ -65,7 +65,7 @@ function! s:build_actions(a, l, f)
   return ['build', 'analyze', 'archive', 'test', 'installsrc', 'install', 'clean']
 endfunction
 
-function! s:compiler(actions) abort
+function! s:compiler(bang, actions) abort
   if s:assert_project()
     let simulator = s:simulator()
     let run_cmd = ''
@@ -81,7 +81,7 @@ function! s:compiler(actions) abort
 
     let cmd = s:base_command(actions, simulator) . s:xcpretty()
     let g:xcode_compiler_cmd = cmd . run_cmd
-    compiler! xcode
+    execute 'compiler'.(a:bang ? '!' : '').' xcode'
   endif
 endfunction
 
@@ -198,6 +198,8 @@ function! s:base_command(actions, simulator)
         \ . s:build_target_with_scheme()
         \ . ' '
         \ . s:destination(a:simulator)
+        \ . ' '
+        \ . get(g:, 'xcode_additional_xcargs', '')
 endfunction
 
 function! s:run_command(simulator)
