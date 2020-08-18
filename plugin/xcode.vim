@@ -192,7 +192,7 @@ endfunction
 
 function! s:base_command(actions, simulator)
   let xcargs = 'xcode_additional_xcargs'
-  if actions ==# 'test'
+  if a:actions ==# 'test'
     let xcargs .= '_test'
   endif
   return 'set -o pipefail; '
