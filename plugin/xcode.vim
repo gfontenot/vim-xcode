@@ -191,6 +191,10 @@ function! s:workspace_exists()
 endfunction
 
 function! s:base_command(actions, simulator)
+  let xcargs = 'xcode_additional_xcargs'
+  if actions ==# 'test'
+    let xcargs .= '_test'
+  endif
   return 'set -o pipefail; '
         \ . 'NSUnbufferedIO=YES xcrun xcodebuild '
         \ . a:actions
@@ -199,7 +203,7 @@ function! s:base_command(actions, simulator)
         \ . ' '
         \ . s:destination(a:simulator)
         \ . ' '
-        \ . get(g:, 'xcode_additional_xcargs', '')
+        \ . get(g:, xcargs, '')
 endfunction
 
 function! s:run_command(simulator)
