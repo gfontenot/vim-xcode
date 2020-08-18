@@ -20,9 +20,14 @@ call setbufvar(bufnr('%'), '&makeprg', g:xcode_compiler_cmd)
 
 CompilerSet errorformat=
             \[x]\ %trror:\ %m\ at\ %l:%c\ in\ %f.,
-            \[x]\ %f:%l:%c:\ %m,
-            \[!]\ %f:%l:%c:\ %m,
-            \%f:%l
+            \❌\ %trror:\ %m\ at\ %l:%c\ in\ %f.,
+            \[!]\ %tarning:\ %m\ at\ %l:%c\ in\ %f.,
+            \⚠️\ %tarning:\ %m\ at\ %l:%c\ in\ %f.,
+            \%E[x]\ %f:%l:%c:\ %m,
+            \%E❌\ %f:%l:%c:\ %m,
+            \%W[!]\ %f:%l:%c:\ %m,
+            \%W⚠️\ %f:%l:%c:\ %m,
+            \%E%>\ \ %[a-zA-Z]%#\\,\ failed\ \-\ %m,%Z\ \ %f:%l
 
 " vint: -ProhibitAbbreviationOption
 let &cpo = s:save_cpo
