@@ -1,6 +1,9 @@
 command! -nargs=? -complete=customlist,s:build_actions
       \ Xbuild call <sid>build("<args>")
 
+command! -bang -bar -nargs=? -complete=customlist,s:compiler_actions
+      \ Xcompiler call <sid>compiler(<bang>0, "<args>")
+
 command! -nargs=? -complete=customlist,s:list_simulators
       \ Xrun call <sid>run("<args>")
 
@@ -60,6 +63,30 @@ endfunction
 
 function! s:build_actions(a, l, f)
   return ['build', 'analyze', 'archive', 'test', 'installsrc', 'install', 'clean']
+endfunction
+
+function! s:compiler(bang, actions) abort
+  if s:assert_project()
+    let simulator = s:simulator()
+    let run_cmd = ''
+
+    if empty(a:actions)
+      let actions = 'build'
+    elseif a:actions == 'run'
+      let actions = 'build'
+      let run_cmd = ' && '.s:run_command(simulator)
+    else
+      let actions = a:actions
+    endif
+
+    let cmd = s:base_command(actions, simulator) . s:xcpretty()
+    let g:xcode_compiler_cmd = cmd . run_cmd
+    execute 'compiler'.(a:bang ? '!' : '').' xcode'
+  endif
+endfunction
+
+function! s:compiler_actions(a, l, f)
+  return s:build_actions(a:a, a:l, a:f) + ['run']
 endfunction
 
 function! s:run(simulator)
@@ -164,6 +191,10 @@ function! s:workspace_exists()
 endfunction
 
 function! s:base_command(actions, simulator)
+  let xcargs = 'xcode_additional_xcargs'
+  if a:actions ==# 'test'
+    let xcargs .= '_test'
+  endif
   return 'set -o pipefail; '
         \ . 'NSUnbufferedIO=YES xcrun xcodebuild '
         \ . a:actions
@@ -171,6 +202,8 @@ function! s:base_command(actions, simulator)
         \ . s:build_target_with_scheme()
         \ . ' '
         \ . s:destination(a:simulator)
+        \ . ' '
+        \ . get(g:, xcargs, '')
 endfunction
 
 function! s:run_command(simulator)
@@ -297,6 +330,12 @@ function! s:get_available_schemes()
     let scheme_command .= ' ' . '-i' . s:cli_args(g:xcode_scheme_ignore_pattern)
   endif
 
+  if exists('g:xcode_scheme_source_ignore')
+    for item in g:xcode_scheme_source_ignore
+      let scheme_command .= ' ' . '-e' . s:cli_args(item)
+    endfor
+  endif
+
   let s:available_schemes = systemlist(scheme_command)
 endfunction
 
@@ -358,7 +397,7 @@ function! s:runner_template()
 endfunction
 
 function! s:xcpretty()
-  if executable('xcpretty')
+  if executable('xcpretty') && !get(g:, 'xcode_disable_xcpretty', 0)
     return ' | xcpretty ' . s:xcpretty_flags()
   else
     return ''
