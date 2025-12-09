@@ -1,3 +1,6 @@
+> [!WARNING]
+> This project is fully dead, and no further work will be done on it. There are lots of really nice modern replacements out there, from simple things like using Sourcekit-LSP directly to more complex solutions such as [xcodebuild.nvim](https://github.com/wojciech-kulik/xcodebuild.nvim). I'd encourage you to start there if you really want to use (neo)vim for your Apple ecosystem development.
+
 # xcode.vim
 
 Plugin for building and testing Xcode projects from within Vim
